@@ -81,7 +81,6 @@
             MenuMain.ItemClicked += menuStrip1_ItemClicked;
             // 
             // trangChủToolStripMenuItem
-            // 
             trangChủToolStripMenuItem.Name = "trangChủToolStripMenuItem";
             trangChủToolStripMenuItem.Size = new Size(87, 24);
             trangChủToolStripMenuItem.Text = "Trang chủ";
