@@ -1,465 +1,238 @@
 ﻿/*==============================================================*/
-/* DBMS name:      Microsoft SQL Server 2008                    */
-/* Created on:     17/04/2025 2:50:40 CH                        */
+/* DBMS name:      Microsoft SQL Server                         */
+/* Created on:     17/04/2025                                   */
 /*==============================================================*/
 
-create database CamDo
-go
-use CamDo
-
-if exists (select 1
-   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('HOPDONG') and o.name = 'FK_HOPDONG_THECHAP_TAISAN')
-alter table HOPDONG
-   drop constraint FK_HOPDONG_THECHAP_TAISAN
-go
-
-if exists (select 1
-   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('TAISAN') and o.name = 'FK_TAISAN_SOHUU_KHACHHAN')
-alter table TAISAN
-   drop constraint FK_TAISAN_SOHUU_KHACHHAN
-go
-
-if exists (select 1
-   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('THANHTOAN') and o.name = 'FK_THANHTOA_TRA_HOPDONG')
-alter table THANHTOAN
-   drop constraint FK_THANHTOA_TRA_HOPDONG
-go
-
-if exists (select 1
-            from  sysindexes
-           where  id    = object_id('HOPDONG')
-            and   name  = 'THECHAP_FK'
-            and   indid > 0
-            and   indid < 255)
-   drop index HOPDONG.THECHAP_FK
-go
-
-if exists (select 1
-            from  sysobjects
-           where  id = object_id('HOPDONG')
-            and   type = 'U')
-   drop table HOPDONG
-go
-
-if exists (select 1
-            from  sysobjects
-           where  id = object_id('KHACHHANG')
-            and   type = 'U')
-   drop table KHACHHANG
-go
-
-if exists (select 1
-            from  sysobjects
-           where  id = object_id('TAIKHOAN')
-            and   type = 'U')
-   drop table TAIKHOAN
-go
-
-if exists (select 1
-            from  sysindexes
-           where  id    = object_id('TAISAN')
-            and   name  = 'SOHUU_FK'
-            and   indid > 0
-            and   indid < 255)
-   drop index TAISAN.SOHUU_FK
-go
-
-if exists (select 1
-            from  sysobjects
-           where  id = object_id('TAISAN')
-            and   type = 'U')
-   drop table TAISAN
-go
-
-if exists (select 1
-            from  sysindexes
-           where  id    = object_id('THANHTOAN')
-            and   name  = 'TRA_FK'
-            and   indid > 0
-            and   indid < 255)
-   drop index THANHTOAN.TRA_FK
-go
-
-if exists (select 1
-            from  sysobjects
-           where  id = object_id('THANHTOAN')
-            and   type = 'U')
-   drop table THANHTOAN
-go
+-- Tạo database và sử dụng
+CREATE DATABASE CamDo;
+GO
+USE CamDo;
+GO
 
 /*==============================================================*/
-/* Table: HOPDONG                                               */
+/* TẠO BẢNG                                                     */
 /*==============================================================*/
-create table HOPDONG (
-   IDHD                 int                  not null,
-   IDTS                 int                  not null,
-   SOTIEN               bigint               null,
-   LAISUAT              float                null,
-   NGAYVAY              datetime             null,
-   HANTRA               datetime             null,
-   TRANGTHAI            nvarchar(20)          null,
-   constraint PK_HOPDONG primary key nonclustered (IDHD)
-)
-go
+CREATE TABLE KHACHHANG (
+   CCCD     CHAR(12)        NOT NULL,
+   HOTEN    NVARCHAR(100),
+   SDT      CHAR(10),
+   DIACHI   NVARCHAR(100),
+   CONSTRAINT PK_KHACHHANG PRIMARY KEY NONCLUSTERED (CCCD)
+);
+GO
 
-/*==============================================================*/
-/* Index: THECHAP_FK                                            */
-/*==============================================================*/
-create index THECHAP_FK on HOPDONG (
-IDTS ASC
-)
-go
+CREATE TABLE TAIKHOAN (
+   USERNAME      CHAR(50)       NOT NULL,
+   PASSWORDHASH  VARCHAR(256),
+   CONSTRAINT PK_TAIKHOAN PRIMARY KEY NONCLUSTERED (USERNAME)
+);
+GO
 
-/*==============================================================*/
-/* Table: KHACHHANG                                             */
-/*==============================================================*/
-create table KHACHHANG (
-   CCCD                 char(15)             not null,
-   HOTEN                nvarchar(100)         null,
-   SDT                  char(10)             null,
-   DIACHI               nvarchar(100)         null,
-   constraint PK_KHACHHANG primary key nonclustered (CCCD)
-)
-go
+CREATE TABLE TAISAN (
+   IDTS     INT               NOT NULL,
+   CCCD     CHAR(12)          NOT NULL,
+   TENTS    NVARCHAR(100),
+   MOTA     NVARCHAR(1000),
+   HINHANH  VARCHAR(255),
+   CONSTRAINT PK_TAISAN PRIMARY KEY NONCLUSTERED (IDTS)
+);
+GO
 
-/*==============================================================*/
-/* Table: TAIKHOAN                                              */
-/*==============================================================*/
-create table TAIKHOAN (
-   USERNAME             char(50)             not null,
-   PASSWORDHASH         varchar(256)         null,
-   constraint PK_TAIKHOAN primary key nonclustered (USERNAME)
-)
-go
+CREATE INDEX SOHUU_FK ON TAISAN (CCCD ASC);
+GO
 
-/*==============================================================*/
-/* Table: TAISAN                                                */
-/*==============================================================*/
-create table TAISAN (
-   IDTS                 int                  not null,
-   CCCD                 char(15)             not null,
-   TENTS                nvarchar(100)         null,
-   MOTA                 text                 null,
-   HINHANH              varchar(255)         null,
-   constraint PK_TAISAN primary key nonclustered (IDTS)
-)
-go
+CREATE TABLE HOPDONG (
+   IDHD       INT            NOT NULL,
+   IDTS       INT            NOT NULL,
+   SOTIEN     BIGINT,
+   LAISUAT    FLOAT,
+   NGAYVAY    DATE,
+   HANTRA     DATE,
+   TRANGTHAI  NVARCHAR(20),
+   CONSTRAINT PK_HOPDONG PRIMARY KEY NONCLUSTERED (IDHD)
+);
+GO
 
-/*==============================================================*/
-/* Index: SOHUU_FK                                              */
-/*==============================================================*/
-create index SOHUU_FK on TAISAN (
-CCCD ASC
-)
-go
+CREATE INDEX THECHAP_FK ON HOPDONG (IDTS ASC);
+GO
+
+CREATE TABLE THANHTOAN (
+   IDTT        INT           NOT NULL,
+   IDHD        INT           NOT NULL,
+   SOTIENTRA   BIGINT,
+   NGAYTRA     DATE,
+   CONSTRAINT PK_THANHTOAN PRIMARY KEY NONCLUSTERED (IDTT)
+);
+GO
+
+CREATE INDEX TRA_FK ON THANHTOAN (IDHD ASC);
+GO
 
 /*==============================================================*/
-/* Table: THANHTOAN                                             */
+/* TẠO KHÓA NGOẠI                                               */
 /*==============================================================*/
-create table THANHTOAN (
-   IDTT                 int                  not null,
-   IDHD                 int                  not null,
-   SOTIENTRA            bigint               null,
-   NGAYTRA              datetime             null,
-   constraint PK_THANHTOAN primary key nonclustered (IDTT)
-)
-go
+ALTER TABLE TAISAN
+   ADD CONSTRAINT FK_TAISAN_SOHUU_KHACHHAN FOREIGN KEY (CCCD)
+   REFERENCES KHACHHANG (CCCD);
+GO
+
+ALTER TABLE HOPDONG
+   ADD CONSTRAINT FK_HOPDONG_THECHAP_TAISAN FOREIGN KEY (IDTS)
+   REFERENCES TAISAN (IDTS);
+GO
+
+ALTER TABLE THANHTOAN
+   ADD CONSTRAINT FK_THANHTOA_TRA_HOPDONG FOREIGN KEY (IDHD)
+   REFERENCES HOPDONG (IDHD);
+GO
 
 /*==============================================================*/
-/* Index: TRA_FK                                                */
+/* CHÈN DỮ LIỆU MẪU                                             */
 /*==============================================================*/
-create index TRA_FK on THANHTOAN (
-IDHD ASC
-)
-go
+-- Tài khoản
+INSERT INTO TAIKHOAN VALUES 
+('admin', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3');
+GO
 
-alter table HOPDONG
-   add constraint FK_HOPDONG_THECHAP_TAISAN foreign key (IDTS)
-      references TAISAN (IDTS)
-go
-
-alter table TAISAN
-   add constraint FK_TAISAN_SOHUU_KHACHHAN foreign key (CCCD)
-      references KHACHHANG (CCCD)
-go
-
-alter table THANHTOAN
-   add constraint FK_THANHTOA_TRA_HOPDONG foreign key (IDHD)
-      references HOPDONG (IDHD)
-go
-
-
-/*==============================================================================================================================================*/
-
-
-/*TAIKHOAN------------------------------------------------------------------------------------------------------------------*/
-insert into TAIKHOAN values ('admin', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3');
-
---drop procedure spCheckLogin
-create procedure spCheckLogin
-(
-		@username		varchar(100),
-		@password		varchar(250)
-)
-	as
-	Begin
-				select	* from TAIKHOAN
-				where	USERNAME= @username
-				and		PASSWORDHASH=@password				
-	End
-Go
---drop procedure spUpdateUserLogin
-create procedure spUpdateUserLogin
-(
-		@username		varchar(100),
-		@password		varchar(250)				
-)
-as
-Begin
-		update TAIKHOAN set 
-		USERNAME=@username,
-		PASSWORDHASH=@password
-		where USERNAME = @username
-End
-
-/*KHACHHANG------------------------------------------------------------------------------------------------------------------*/
+-- Khách hàng
 INSERT INTO KHACHHANG (CCCD, HOTEN, SDT, DIACHI) VALUES
 ('056789012345', N'Nguyễn Văn A', '0123456789', N'Hà Nội'),
 ('067890123456', N'Trần Thị B', '0987654321', N'TP. Hồ Chí Minh'),
 ('078901234567', N'Lê Văn C', '0234567890', N'Đà Nẵng');
-select * from KHACHHANG
-
--- drop procedure spInsertCustomer
-create procedure spInsertCustomer
-(
-		@cccd			varchar(12),
-		@hoten			nvarchar(100),
-		@sdt			varchar(10),
-		@diachi			nvarchar(100)
-)
-AS
-BEGIN
-    -- Chèn dữ liệu vào bảng Contracts
-    INSERT INTO KHACHHANG(CCCD, HOTEN, SDT, DIACHI)
-    VALUES (@cccd, @hoten, @sdt, @diachi);
-END
 GO
 
---drop procedure spUpdateCustomer
-CREATE PROCEDURE spUpdateCustomer
-(
-    @cccd          varchar,
-    @hoten         nvarchar(100),
-    @sdt           varchar(10),
-    @diachi        nvarchar(100)
-)
-AS
-BEGIN
-    UPDATE KHACHHANG
-    SET HOTEN = @hoten,
-        SDT = @sdt,
-        DIACHI = @diachi
-    WHERE CCCD = @cccd;
-END
-GO
-
---drop procedure spDeleteCustomer
-CREATE PROCEDURE spDeleteCustomer
-(
-    @cccd          varchar
-)
-AS
-BEGIN
-    DELETE FROM KHACHHANG
-    WHERE CCCD = @cccd;
-END
-GO
-
-
-
-
-
-/*TAISAN------------------------------------------------------------------------------------------------------------------*/
+-- Tài sản
 INSERT INTO TAISAN (IDTS, CCCD, TENTS, MOTA, HINHANH) VALUES
-(1, '123456789012345', N'Tài sản A', N'Mô tả tài sản A', 'path/to/imageA.jpg'),
-(2, '345678901234567', N'Tài sản B', N'Mô tả tài sản B', 'path/to/imageB.jpg');
-
-go
--- drop function fcgetIdAsset
-Create function fcgetIdAsset()
-	returns int
-	As
-	Begin
-		Declare @Id int
-		Declare @MaxId int
-		
-		Select @MaxId = MAX(IDTS) from TAISAN
-						
-		if exists (select IDTS from TAISAN)
-			set @Id = @MaxId+1
-		else
-			set @Id = 1
-		return @Id
-End
-
-go
---drop procedure spInsertAsset
-CREATE PROCEDURE spInsertAsset
-(
-    @idts          int,
-    @cccd          char(15),
-    @tents         nvarchar(100),
-    @mota          text,
-    @hinhanh       varchar(255)
-)
-AS
-BEGIN
-    -- Chèn dữ liệu vào bảng TAISAN
-    INSERT INTO TAISAN(IDTS, CCCD, TENTS, MOTA, HINHANH)
-    VALUES (@idts, @cccd, @tents, @mota, @hinhanh);
-END
+(1, '056789012345', N'Tài sản A', N'Mô tả tài sản A', 'path/to/imageA.jpg'),
+(2, '056789012345', N'Tài sản B', N'Mô tả tài sản B', 'path/to/imageB.jpg');
 GO
 
---drop procedure spUpdateAsset
-CREATE PROCEDURE spUpdateAsset
-(
-    @idts          int,
-    @cccd          char(15),
-    @tents         nvarchar(100),
-    @mota          text,
-    @hinhanh       varchar(255)
-)
-AS
-BEGIN
-    -- Cập nhật dữ liệu vào bảng TAISAN
-    UPDATE TAISAN
-    SET CCCD = @cccd,
-        TENTS = @tents,
-        MOTA = @mota,
-        HINHANH = @hinhanh
-    WHERE IDTS = @idts;
-END
+-- Hợp đồng
+INSERT INTO HOPDONG (IDHD, IDTS, SOTIEN, LAISUAT, NGAYVAY, HANTRA, TRANGTHAI) VALUES
+(1, 1, 5500000, 0.5, '2024-10-01', '2025-01-01', N'Đã kết thúc'),        
+(2, 2, 200000000, 4.5, '2024-02-01', '2025-07-01', N'Đang hoạt động'),   
+(3, 1, 150000000, 4.0, '2024-03-01', '2025-10-01', N'Đang hoạt động'),   
+(9, 2, 2000000, 0.4, '2024-02-01', '2025-02-01', N'Nợ'),                 
+(10, 2, 1500000, 0.6, '2024-03-01', '2025-03-01', N'Nợ'),                
+(11, 1, 2500000, 0.5, '2024-04-01', '2025-04-01', N'Nợ'),                
+(12, 2, 3000000, 0.4, '2024-05-01', '2025-05-01', N'Đang hoạt động'),    
+(13, 2, 3500000, 0.7, '2024-06-01', '2025-06-01', N'Đang hoạt động'),    
+(14, 1, 4000000, 0.5, '2024-07-01', '2025-07-01', N'Đang hoạt động'),    
+(15, 2, 4500000, 0.4, '2024-08-01', '2025-01-01', N'Thanh lý'),          
+(16, 1, 5000000, 0.6, '2024-09-01', '2025-09-01', N'Thanh lý'),          
+(18, 2, 6000000, 0.4, '2024-11-01', '2025-11-01', N'Đang hoạt động'),    
+(19, 1, 6500000, 0.5, '2024-12-01', '2025-12-01', N'Đang hoạt động'),    
+(20, 1, 7000000, 0.6, '2025-01-01', '2026-01-01', N'Đang hoạt động');    
+
 GO
 
-
---drop procedure spDeleteAsset
-CREATE PROCEDURE spDeleteAsset
-(
-    @idts          int
-)
-AS
-BEGIN
-    -- Xóa dữ liệu khỏi bảng TAISAN
-    DELETE FROM TAISAN
-    WHERE IDTS = @idts;
-END
+-- Cập nhật trạng thái
+UPDATE HOPDONG
+SET TrangThai = N'Đã kết thúc'
+WHERE TrangThai = N'Hoàn tất';
 GO
 
+/*==============================================================*/
+/* HÀM & THỦ TỤC                                                */
+/*==============================================================*/
 
-/*HOPDONG------------------------------------------------------------------------------------------------------------------*/
-INSERT INTO HOPDONG VALUES(2, 2, 200000000, 4.5, '2023-02-01', '2025-02-01', N'Đang hoạt động')
-INSERT INTO HOPDONG VALUES(3, 1, 150000000, 4.0, '2023-03-01', '2025-03-01', N'Hoàn tất')
-SELECT * FROM HOPDONG;
-
-go
--- drop function fcgetIdContract
-Create function fcgetIdContract()
-	returns int
-	As
-	Begin
-		Declare @Id int
-		Declare @MaxId int
-		
-		Select @MaxId = MAX(IDHD) from HOPDONG
-						
-		if exists (select IDHD from HOPDONG)
-			set @Id = @MaxId+1
-		else
-			set @Id = 1
-		return @Id
-End
-go
-
--- drop procedure spInsertContract
-create procedure spInsertContract
-( 
-		@idhd			int,
-		@idts			int,
-		@tien			bigint,
-		@lai			float,
-		@ngayvay		datetime,
-		@hantra			datetime,
-		@trangthai		varchar(20)
-)
+-- Hàm tạo ID tài sản tự tăng
+CREATE FUNCTION fcgetIdAsset()
+RETURNS INT
 AS
 BEGIN
-    -- Chèn dữ liệu vào bảng Contracts
-    INSERT INTO HOPDONG (IDHD, IDTS, SOTIEN, LAISUAT, NGAYVAY, HANTRA, TRANGTHAI)
-    VALUES (@idhd, @idts, @tien, @lai, @ngayvay, @hantra, @trangthai);
-END
+    DECLARE @Id INT, @MaxId INT;
+    SELECT @MaxId = MAX(IDTS) FROM TAISAN;
+    SET @Id = ISNULL(@MaxId, 0) + 1;
+    RETURN @Id;
+END;
 GO
--- drop procedure spUpdateContract
-CREATE PROCEDURE spUpdateContract
-( 
-    @idhd        INT,
-    @idts        INT,
-    @tien        BIGINT,
-    @lai         FLOAT,
-    @ngayvay     DATETIME,
-    @hantra      DATETIME,
-    @trangthai   VARCHAR(20)
-)
+
+-- Hàm tạo ID hợp đồng tự tăng
+CREATE FUNCTION fcgetIdContract()
+RETURNS INT
 AS
 BEGIN
-    -- Cập nhật thông tin hợp đồng trong bảng HOPDONG
-    UPDATE HOPDONG
-    SET 
-        IDTS = @idts,
-        SOTIEN = @tien,
-        LAISUAT = @lai,
-        NGAYVAY = @ngayvay,
-        HANTRA = @hantra,
-        TRANGTHAI = @trangthai
-    WHERE 
-        IDHD = @idhd; -- Điều kiện cập nhật
-END
+    DECLARE @Id INT, @MaxId INT;
+    SELECT @MaxId = MAX(IDHD) FROM HOPDONG;
+    SET @Id = ISNULL(@MaxId, 0) + 1;
+    RETURN @Id;
+END;
 GO
---drop procedure spDeleteContract
-CREATE PROCEDURE spDeleteContract
-(
-    @idhd INT 
-)
+
+-- Thủ tục đăng nhập
+CREATE PROCEDURE spCheckLogin
+    @username VARCHAR(100),
+    @password VARCHAR(250)
 AS
 BEGIN
-    DELETE FROM HOPDONG
-    WHERE IDHD = @idhd;
-END
+    SELECT * FROM TAIKHOAN WHERE USERNAME = @username AND PASSWORDHASH = @password;
+END;
 GO
 
---drop procedure spFindViewContract
---CREATE PROCEDURE spFindViewContract
---AS
---BEGIN
---    SELECT 
---        IDHD,
---        IDTS,
---        SOTIEN,
---        LAISUAT,
---        NGAYVAY,
---        HANTRA,
---        TRANGTHAI
---    FROM 
---        HOPDONG;
---END
---GO
+-- Thủ tục cập nhật tài khoản
+CREATE PROCEDURE spUpdateUserLogin
+    @username VARCHAR(100),
+    @password VARCHAR(250)
+AS
+BEGIN
+    UPDATE TAIKHOAN SET PASSWORDHASH = @password WHERE USERNAME = @username;
+END;
+GO
 
+-- Thủ tục KHÁCH HÀNG
+CREATE PROCEDURE spInsertCustomer (@cccd VARCHAR(12), @hoten NVARCHAR(100), @sdt VARCHAR(10), @diachi NVARCHAR(100))
+AS BEGIN
+    INSERT INTO KHACHHANG VALUES (@cccd, @hoten, @sdt, @diachi);
+END;
+GO
 
+CREATE PROCEDURE spUpdateCustomer (@cccd VARCHAR, @hoten NVARCHAR(100), @sdt VARCHAR(10), @diachi NVARCHAR(100))
+AS BEGIN
+    UPDATE KHACHHANG SET HOTEN = @hoten, SDT = @sdt, DIACHI = @diachi WHERE CCCD = @cccd;
+END;
+GO
 
+CREATE PROCEDURE spDeleteCustomer (@cccd VARCHAR)
+AS BEGIN
+    DELETE FROM KHACHHANG WHERE CCCD = @cccd;
+END;
+GO
 
+-- Thủ tục TÀI SẢN
+CREATE PROCEDURE spInsertAsset (@idts INT, @cccd CHAR(15), @tents NVARCHAR(100), @mota NVARCHAR(1000), @hinhanh VARCHAR(255))
+AS BEGIN
+    INSERT INTO TAISAN VALUES (@idts, @cccd, @tents, @mota, @hinhanh);
+END;
+GO
 
+CREATE PROCEDURE spUpdateAsset (@idts INT, @cccd CHAR(15), @tents NVARCHAR(100), @mota NVARCHAR(1000), @hinhanh VARCHAR(255))
+AS BEGIN
+    UPDATE TAISAN SET CCCD = @cccd, TENTS = @tents, MOTA = @mota, HINHANH = @hinhanh WHERE IDTS = @idts;
+END;
+GO
 
+CREATE PROCEDURE spDeleteAsset (@idts INT)
+AS BEGIN
+    DELETE FROM TAISAN WHERE IDTS = @idts;
+END;
+GO
 
+-- Thủ tục HỢP ĐỒNG
+CREATE PROCEDURE spInsertContract (@idhd INT, @idts INT, @tien BIGINT, @lai FLOAT, @ngayvay DATE, @hantra DATE, @trangthai NVARCHAR(20))
+AS BEGIN
+    INSERT INTO HOPDONG VALUES (@idhd, @idts, @tien, @lai, @ngayvay, @hantra, @trangthai);
+END;
+GO
 
+CREATE PROCEDURE spUpdateContract (@idhd INT, @idts INT, @tien BIGINT, @lai FLOAT, @ngayvay DATE, @hantra DATE, @trangthai VARCHAR(20))
+AS BEGIN
+    UPDATE HOPDONG SET IDTS = @idts, SOTIEN = @tien, LAISUAT = @lai, NGAYVAY = @ngayvay, HANTRA = @hantra, TRANGTHAI = @trangthai WHERE IDHD = @idhd;
+END;
+GO
+
+CREATE PROCEDURE spDeleteContract (@idhd INT)
+AS BEGIN
+    DELETE FROM HOPDONG WHERE IDHD = @idhd;
+END;
+GO
