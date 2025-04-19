@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace CamDo.View
 {
-    public partial class UserControl1 : UserControl
+    public partial class frmStatistic : UserControl
     {
-        public UserControl1()
+        public frmStatistic()
         {
             InitializeComponent();
         }

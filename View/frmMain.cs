@@ -17,10 +17,6 @@ namespace CamDo.View
             InitializeComponent();
         }
 
-        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
 
         internal static List<byte> typePages = new List<byte>();
         public void ThemTabPages(UserControl uct, byte typeControl, string tenTab)
@@ -61,7 +57,7 @@ namespace CamDo.View
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-
+            hợpĐồngToolStripMenuItem_Click(sender, e);
         }
 
         private void menuItemDongTrang_Click(object sender, EventArgs e)
@@ -78,21 +74,6 @@ namespace CamDo.View
         {
             frmUpdateUserlogin frm = new frmUpdateUserlogin();
             frm.ShowDialog();
-        }
-
-        private void đăngXuấtToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void toolStripComboBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void toolStripComboBox1_Click_1(object sender, EventArgs e)
-        {
-
         }
 
         private void contextMenuTabHienThi_Opening(object sender, CancelEventArgs e)
@@ -115,6 +96,26 @@ namespace CamDo.View
             }
             else
                 return;
+        }
+
+        private void TabHienThi_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void hợpĐồngToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ThemTabPages(uctContract.uctCo, 4, "Hợp đồng");
+        }
+
+        private void kháchHàngToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ThemTabPages(uctCustomer.uctCu, 4, "Khách hàng");
+        }
+
+        private void tàiSảnToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ThemTabPages(uctAsset.uctAs, 4, "Tài sản");
         }
     }
 }

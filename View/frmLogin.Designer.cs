@@ -92,6 +92,8 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(lab_title);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "frmLogin";
             Load += frmLogin_Load;
             ResumeLayout(false);
