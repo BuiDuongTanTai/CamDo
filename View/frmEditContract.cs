@@ -90,6 +90,7 @@ namespace CamDo.View
                     {
                         MessageBox.Show("Cập nhật thành công!");
                         this.DialogResult = DialogResult.OK;
+                        Controllers.PdfExporter.ExportContractToPdf(IDHD);
                     }
                     else
                     {

@@ -1,6 +1,6 @@
 ﻿namespace CamDo.View
 {
-    partial class frmPay
+    partial class uctPay
     {
         /// <summary> 
         /// Required designer variable.

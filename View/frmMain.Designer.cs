@@ -36,13 +36,12 @@
             hợpĐồngToolStripMenuItem = new ToolStripMenuItem();
             kháchHàngToolStripMenuItem = new ToolStripMenuItem();
             tàiSảnToolStripMenuItem = new ToolStripMenuItem();
-            thốngKêToolStripMenuItem = new ToolStripMenuItem();
+            thanhToánToolStripMenuItem = new ToolStripMenuItem();
             hệThốngToolStripMenuItem = new ToolStripMenuItem();
             đổiMậtKhẩuToolStripMenuItem = new ToolStripMenuItem();
             đăngXuấtToolStripMenuItem1 = new ToolStripMenuItem();
             đăngXuấtToolStripMenuItem = new ToolStripMenuItem();
             TabHienThi = new TabControl();
-            thanhToánToolStripMenuItem = new ToolStripMenuItem();
             contextMenuTabHienThi.SuspendLayout();
             MenuMain.SuspendLayout();
             SuspendLayout();
@@ -72,7 +71,7 @@
             // MenuMain
             // 
             MenuMain.ImageScalingSize = new Size(20, 20);
-            MenuMain.Items.AddRange(new ToolStripItem[] { hợpĐồngToolStripMenuItem, kháchHàngToolStripMenuItem, tàiSảnToolStripMenuItem, thanhToánToolStripMenuItem, thốngKêToolStripMenuItem, hệThốngToolStripMenuItem });
+            MenuMain.Items.AddRange(new ToolStripItem[] { hợpĐồngToolStripMenuItem, kháchHàngToolStripMenuItem, tàiSảnToolStripMenuItem, thanhToánToolStripMenuItem, hệThốngToolStripMenuItem });
             MenuMain.Location = new Point(0, 0);
             MenuMain.Name = "MenuMain";
             MenuMain.Size = new Size(933, 28);
@@ -100,11 +99,11 @@
             tàiSảnToolStripMenuItem.Text = "Tài sản";
             tàiSảnToolStripMenuItem.Click += tàiSảnToolStripMenuItem_Click;
             // 
-            // thốngKêToolStripMenuItem
+            // thanhToánToolStripMenuItem
             // 
-            thốngKêToolStripMenuItem.Name = "thốngKêToolStripMenuItem";
-            thốngKêToolStripMenuItem.Size = new Size(84, 24);
-            thốngKêToolStripMenuItem.Text = "Thống kê";
+            thanhToánToolStripMenuItem.Name = "thanhToánToolStripMenuItem";
+            thanhToánToolStripMenuItem.Size = new Size(97, 24);
+            thanhToánToolStripMenuItem.Text = "Thanh toán";
             // 
             // hệThốngToolStripMenuItem
             // 
@@ -116,14 +115,14 @@
             // đổiMậtKhẩuToolStripMenuItem
             // 
             đổiMậtKhẩuToolStripMenuItem.Name = "đổiMậtKhẩuToolStripMenuItem";
-            đổiMậtKhẩuToolStripMenuItem.Size = new Size(181, 26);
+            đổiMậtKhẩuToolStripMenuItem.Size = new Size(224, 26);
             đổiMậtKhẩuToolStripMenuItem.Text = "Đổi mật khẩu";
             đổiMậtKhẩuToolStripMenuItem.Click += đổiMậtKhẩuToolStripMenuItem_Click;
             // 
             // đăngXuấtToolStripMenuItem1
             // 
             đăngXuấtToolStripMenuItem1.Name = "đăngXuấtToolStripMenuItem1";
-            đăngXuấtToolStripMenuItem1.Size = new Size(181, 26);
+            đăngXuấtToolStripMenuItem1.Size = new Size(224, 26);
             đăngXuấtToolStripMenuItem1.Text = "Đăng xuất";
             đăngXuấtToolStripMenuItem1.Click += đăngXuấtToolStripMenuItem1_Click;
             // 
@@ -142,12 +141,6 @@
             TabHienThi.Size = new Size(933, 494);
             TabHienThi.TabIndex = 2;
             TabHienThi.SelectedIndexChanged += TabHienThi_SelectedIndexChanged;
-            // 
-            // thanhToánToolStripMenuItem
-            // 
-            thanhToánToolStripMenuItem.Name = "thanhToánToolStripMenuItem";
-            thanhToánToolStripMenuItem.Size = new Size(97, 24);
-            thanhToánToolStripMenuItem.Text = "Thanh toán";
             // 
             // frmMain
             // 
@@ -179,7 +172,6 @@
         private ToolStripMenuItem kháchHàngToolStripMenuItem;
         private ToolStripMenuItem tàiSảnToolStripMenuItem;
         private ToolStripMenuItem hợpĐồngToolStripMenuItem;
-        private ToolStripMenuItem thốngKêToolStripMenuItem;
         private ToolStripMenuItem đăngXuấtToolStripMenuItem;
         private ToolStripMenuItem hệThốngToolStripMenuItem;
         private ToolStripMenuItem đổiMậtKhẩuToolStripMenuItem;

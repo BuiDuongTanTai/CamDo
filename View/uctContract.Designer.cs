@@ -146,7 +146,6 @@ namespace CamDo.View
             label2.Size = new Size(114, 20);
             label2.TabIndex = 9;
             label2.Text = "Chọn trạng thái:";
-            label2.Click += label2_Click;
             // 
             // btnRefresh
             // 

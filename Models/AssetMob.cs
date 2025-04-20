@@ -69,5 +69,12 @@ namespace CamDo.Models
             DataTable dt = connection_sql.FillDataTable(constant.search_AssetByName, paras);
             return dt;
         }
+
+        public DataTable SearchCustomer()
+        {
+            SqlParameter[] paras = { new SqlParameter("@cccd", "%" + CCCD + "%") };
+            DataTable dt = connection_sql.FillDataTable(constant.search_Customer, paras);
+            return dt;
+        }
     }
 }

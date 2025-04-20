@@ -141,6 +141,11 @@ namespace CamDo.View
                 DialogResult dr = MessageBox.Show("Bạn có chắc chắn muốn xóa hợp đồng này?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (dr == DialogResult.Yes)
                 {
+                    DialogResult _dr = MessageBox.Show("Bạn có muốn xoá file pdf của hợp đồng này không?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (_dr == DialogResult.Yes)
+                    {
+                        Controllers.PdfExporter.deletePdf(idHD);
+                    }
                     // Gọi phương thức xóa từ Controller
                     int result = Controllers.ContractCtrl.delete(idHD); // Giả sử có phương thức delete(idHD)
 
@@ -160,11 +165,6 @@ namespace CamDo.View
             {
                 MessageBox.Show("Vui lòng chọn một dòng để xóa.");
             }
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

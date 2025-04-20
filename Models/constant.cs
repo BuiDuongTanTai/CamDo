@@ -14,13 +14,13 @@ namespace CamDo.Models
 
         //stored procedure use for table Contract
         public static string createid_Contract = "select id= dbo.fcgetIdContract()";
-        //public static string findView_Contract = "spFindViewContract";
         public static string insert_Contract = "spInsertContract";
         public static string update_Contract = "spUpdateContract";
         public static string delete_Contract = "spDeleteContract";
         public static string search_Contract = "SELECT * FROM HOPDONG WHERE IDHD = @idhd";
         public static string filter_Contract = "SELECT * FROM HOPDONG WHERE TRANGTHAI = @status";
         public static string show_Contract = "SELECT * FROM HOPDONG ORDER BY IDHD DESC";
+        public static string search_Asset= "SELECT * FROM HOPDONG WHERE IDTS = @idts";
 
         //stored procedure use for table Customer
         public static string insert_Customer = "spInsertCustomer";
@@ -41,6 +41,7 @@ namespace CamDo.Models
         public static string show_Asset = "SELECT * FROM TAISAN ORDER BY IDTS DESC";
         public static string search_AssetByID= "SELECT * FROM TAISAN WHERE IDTS = @idts";
         public static string search_AssetByName = "SELECT * FROM TAISAN WHERE TENTS like @tents";
+        public static string search_Customer= "SELECT * FROM TAISAN WHERE CCCD like @cccd";
 
 
 

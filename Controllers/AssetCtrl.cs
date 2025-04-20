@@ -39,10 +39,17 @@ namespace CamDo.Controllers
             AssetMob asset = new AssetMob(idts, "", "", "", "");
             return asset.SearchAssetByID();
         }
+
         public static DataTable searchName(string tents)
         {
             AssetMob asset = new AssetMob(0, "", tents, "", "");
             return asset.SearchAssetByName();
+        }
+
+        public static DataTable searchCustomer(string cccd)
+        {
+            AssetMob asset = new AssetMob(0, cccd, "", "", "");
+            return asset.SearchCustomer();
         }
     }
 }

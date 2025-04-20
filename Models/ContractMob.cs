@@ -42,8 +42,8 @@ namespace CamDo.Models
         public int InsertContract()
         {
             int result = 0;
-            string[] paras = new string[7] {"@idhd","@idts","@tien","@lai","@ngayvay","@hantra","@trangthai"};
-            object[] values = new object[7] { IDHĐ, IDTS, SoTien,LaiSuat,NgayVay,HanTra,TrangThai};
+            string[] paras = new string[7] { "@idhd", "@idts", "@tien", "@lai", "@ngayvay", "@hantra", "@trangthai" };
+            object[] values = new object[7] { IDHĐ, IDTS, SoTien, LaiSuat, NgayVay, HanTra, TrangThai };
 
             // Thực thi stored procedure
             result = connection_sql.Excute_Sql(constant.insert_Contract, CommandType.StoredProcedure, paras, values);
@@ -53,8 +53,8 @@ namespace CamDo.Models
         public int UpdateContract()
         {
             int result = 0;
-            string[] paras = new string[7] {"@idhd","@idts","@tien","@lai","@ngayvay","@hantra","@trangthai"};
-            object[] values = new object[7] { IDHĐ, IDTS, SoTien,LaiSuat,NgayVay,HanTra,TrangThai};
+            string[] paras = new string[7] { "@idhd", "@idts", "@tien", "@lai", "@ngayvay", "@hantra", "@trangthai" };
+            object[] values = new object[7] { IDHĐ, IDTS, SoTien, LaiSuat, NgayVay, HanTra, TrangThai };
             result = connection_sql.Excute_Sql(constant.update_Contract, CommandType.StoredProcedure, paras, values);
             return result;
         }
@@ -82,5 +82,11 @@ namespace CamDo.Models
             return dt;
         }
 
+        public DataTable SearchAsset()
+        {
+            SqlParameter[] paras = { new SqlParameter("@idts", IDTS) };
+            DataTable dt = connection_sql.FillDataTable(constant.search_Asset, paras);
+            return dt;
+        }
     }
 }

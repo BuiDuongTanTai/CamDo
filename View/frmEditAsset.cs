@@ -146,6 +146,12 @@ namespace CamDo.View
                 {
                     MessageBox.Show("Cập nhật thành công!");
                     this.DialogResult = DialogResult.OK;
+
+                    //lấy ID hợp đồng từ DataGridView
+                    DataTable dt = Controllers.ContractCtrl.searchAsset(IDTS);
+                    int IDHD = int.Parse(dt.Rows[0]["IDHD"].ToString());
+                    // Xuất hợp đồng ra PDF
+                    Controllers.PdfExporter.ExportContractToPdf(IDHD);
                 }
                 else
                 {
