@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -57,6 +58,7 @@ namespace CamDo.View
 
         private void frmMain_Load(object sender, EventArgs e)
         {
+            LoadNotificationsToMenu();
             hợpĐồngToolStripMenuItem_Click(sender, e);
         }
 
@@ -76,16 +78,6 @@ namespace CamDo.View
             frm.ShowDialog();
         }
 
-        private void contextMenuTabHienThi_Opening(object sender, CancelEventArgs e)
-        {
-
-        }
-        private void đổiMậtKhẩuToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            frmUpdateUserlogin frm = new frmUpdateUserlogin();
-            frm.ShowDialog();
-        }
-
         private void đăngXuấtToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DialogResult dr = MessageBox.Show("Bạn có muốn thoát ?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -96,11 +88,6 @@ namespace CamDo.View
             }
             else
                 return;
-        }
-
-        private void TabHienThi_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void hợpĐồngToolStripMenuItem_Click(object sender, EventArgs e)
@@ -116,6 +103,73 @@ namespace CamDo.View
         private void tàiSảnToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ThemTabPages(uctAsset.uctAs, 4, "Tài sản");
+        }
+
+        private DataTable updateStatus()
+        {
+            return Controllers.ContractCtrl.updateStatus();
+        }
+
+        private void LoadNotificationsToMenu()
+        {
+            // Xóa thông báo cũ nếu có
+            thôngBáoToolStripMenuItem.DropDownItems.Clear();
+
+
+            DataRowCollection rows = updateStatus().Rows;
+            int count = rows.Count;
+
+            if (count > 0)
+            {
+                //Đổi màu mục thông báo khi có thông báo
+                thôngBáoToolStripMenuItem.ForeColor = Color.Red;
+                thôngBáoToolStripMenuItem.Font = new Font(thôngBáoToolStripMenuItem.Font, FontStyle.Bold);
+                thôngBáoToolStripMenuItem.Text = $"Thông báo ({count})"; // Cập nhật số lượng thông báo
+
+                // Tạo thông báo cho mỗi hợp đồng quá hạn
+                foreach (DataRow row in rows)
+                {
+                    // Lấy thông tin từ DataRow
+                    string contractName = row["IDHD"].ToString();
+                    DateTime dueDate = Convert.ToDateTime(row["HANTRA"]);
+                    // Tạo thông báo dạng ToolStripMenuItem
+                    ToolStripMenuItem notificationItem = new ToolStripMenuItem();
+                    notificationItem.Text = $"Hợp đồng {contractName} đã quá hạn vào ngày {dueDate:dd/MM/yyyy}";
+                    notificationItem.ForeColor = Color.Red;
+                    notificationItem.Font = new Font(thôngBáoToolStripMenuItem.Font, FontStyle.Bold);
+
+                    // Tùy chỉnh thêm hành động khi nhấp vào thông báo
+                    notificationItem.Click += (s, e) =>
+                    {
+                        ToolStripMenuItem item = s as ToolStripMenuItem;
+
+                        if (item != null && item.Tag?.ToString() != "read")
+                        {
+                            item.ForeColor = Color.Black;
+                            item.Font = new Font(thôngBáoToolStripMenuItem.Font, FontStyle.Regular);
+                            item.Tag = "read";
+
+                            // Đếm lại số thông báo chưa đọc
+                            int unreadCount = thôngBáoToolStripMenuItem.DropDownItems
+                                .OfType<ToolStripMenuItem>()
+                                .Count(i => i.Tag?.ToString() != "read");
+
+                            // Cập nhật text menu
+                            thôngBáoToolStripMenuItem.Text = $"Thông báo ({unreadCount})";
+
+                            // Nếu không còn thông báo chưa đọc, có thể đổi màu lại
+                            if (unreadCount == 0)
+                            {
+                                thôngBáoToolStripMenuItem.ForeColor = Color.Black;
+                                thôngBáoToolStripMenuItem.Font = new Font(thôngBáoToolStripMenuItem.Font, FontStyle.Regular);
+                            }
+                        }
+                    };
+
+                    // Thêm vào MenuStrip
+                    thôngBáoToolStripMenuItem.DropDownItems.Add(notificationItem);
+                }
+            }
         }
     }
 }

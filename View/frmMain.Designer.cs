@@ -40,6 +40,8 @@
             hệThốngToolStripMenuItem = new ToolStripMenuItem();
             đổiMậtKhẩuToolStripMenuItem = new ToolStripMenuItem();
             đăngXuấtToolStripMenuItem1 = new ToolStripMenuItem();
+            thôngBáoToolStripMenuItem = new ToolStripMenuItem();
+            hợpĐồngQuáHạnToolStripMenuItem = new ToolStripMenuItem();
             đăngXuấtToolStripMenuItem = new ToolStripMenuItem();
             TabHienThi = new TabControl();
             contextMenuTabHienThi.SuspendLayout();
@@ -52,7 +54,6 @@
             contextMenuTabHienThi.Items.AddRange(new ToolStripItem[] { menuItemDongTrang, menuItemDongTrangAll });
             contextMenuTabHienThi.Name = "contextMenuTabHienThi";
             contextMenuTabHienThi.Size = new Size(208, 52);
-            contextMenuTabHienThi.Opening += contextMenuTabHienThi_Opening;
             // 
             // menuItemDongTrang
             // 
@@ -71,7 +72,7 @@
             // MenuMain
             // 
             MenuMain.ImageScalingSize = new Size(20, 20);
-            MenuMain.Items.AddRange(new ToolStripItem[] { hợpĐồngToolStripMenuItem, kháchHàngToolStripMenuItem, tàiSảnToolStripMenuItem, thanhToánToolStripMenuItem, hệThốngToolStripMenuItem });
+            MenuMain.Items.AddRange(new ToolStripItem[] { hợpĐồngToolStripMenuItem, kháchHàngToolStripMenuItem, tàiSảnToolStripMenuItem, thanhToánToolStripMenuItem, hệThốngToolStripMenuItem, thôngBáoToolStripMenuItem });
             MenuMain.Location = new Point(0, 0);
             MenuMain.Name = "MenuMain";
             MenuMain.Size = new Size(933, 28);
@@ -115,16 +116,30 @@
             // đổiMậtKhẩuToolStripMenuItem
             // 
             đổiMậtKhẩuToolStripMenuItem.Name = "đổiMậtKhẩuToolStripMenuItem";
-            đổiMậtKhẩuToolStripMenuItem.Size = new Size(224, 26);
+            đổiMậtKhẩuToolStripMenuItem.Size = new Size(181, 26);
             đổiMậtKhẩuToolStripMenuItem.Text = "Đổi mật khẩu";
             đổiMậtKhẩuToolStripMenuItem.Click += đổiMậtKhẩuToolStripMenuItem_Click;
             // 
             // đăngXuấtToolStripMenuItem1
             // 
             đăngXuấtToolStripMenuItem1.Name = "đăngXuấtToolStripMenuItem1";
-            đăngXuấtToolStripMenuItem1.Size = new Size(224, 26);
+            đăngXuấtToolStripMenuItem1.Size = new Size(181, 26);
             đăngXuấtToolStripMenuItem1.Text = "Đăng xuất";
             đăngXuấtToolStripMenuItem1.Click += đăngXuấtToolStripMenuItem1_Click;
+            // 
+            // thôngBáoToolStripMenuItem
+            // 
+            thôngBáoToolStripMenuItem.Alignment = ToolStripItemAlignment.Right;
+            thôngBáoToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { hợpĐồngQuáHạnToolStripMenuItem });
+            thôngBáoToolStripMenuItem.Name = "thôngBáoToolStripMenuItem";
+            thôngBáoToolStripMenuItem.Size = new Size(117, 24);
+            thôngBáoToolStripMenuItem.Text = "Thông báo (0)";
+            // 
+            // hợpĐồngQuáHạnToolStripMenuItem
+            // 
+            hợpĐồngQuáHạnToolStripMenuItem.Name = "hợpĐồngQuáHạnToolStripMenuItem";
+            hợpĐồngQuáHạnToolStripMenuItem.Size = new Size(224, 26);
+            hợpĐồngQuáHạnToolStripMenuItem.Text = "Hợp đồng quá hạn";
             // 
             // đăngXuấtToolStripMenuItem
             // 
@@ -140,7 +155,6 @@
             TabHienThi.SelectedIndex = 0;
             TabHienThi.Size = new Size(933, 494);
             TabHienThi.TabIndex = 2;
-            TabHienThi.SelectedIndexChanged += TabHienThi_SelectedIndexChanged;
             // 
             // frmMain
             // 
@@ -180,5 +194,7 @@
         private ToolStripMenuItem menuItemDongTrang;
         private ToolStripMenuItem menuItemDongTrangAll;
         private ToolStripMenuItem thanhToánToolStripMenuItem;
+        private ToolStripMenuItem thôngBáoToolStripMenuItem;
+        private ToolStripMenuItem hợpĐồngQuáHạnToolStripMenuItem;
     }
 }

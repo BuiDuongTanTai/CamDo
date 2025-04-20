@@ -88,5 +88,9 @@ namespace CamDo.Models
             DataTable dt = connection_sql.FillDataTable(constant.search_Asset, paras);
             return dt;
         }
+        public DataTable UpdateStatus()
+        {
+            return connection_sql.FillDataTable(constant.update_ContractStatus);
+        }
     }
 }

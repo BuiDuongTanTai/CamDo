@@ -28,8 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            SuspendLayout();
+            // 
+            // uctPay
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            Name = "uctPay";
+            Size = new Size(933, 494);
+            ResumeLayout(false);
         }
 
         #endregion

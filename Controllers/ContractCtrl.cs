@@ -53,5 +53,11 @@ namespace CamDo.Controllers
             ContractMob contract = new ContractMob(0, idts, 0, 0, DateTime.Now, DateTime.Now, "");
             return contract.SearchAsset();
         }
+
+        public static DataTable updateStatus()
+        {
+            ContractMob contract = new ContractMob();
+            return contract.UpdateStatus();
+        }
     }
 }

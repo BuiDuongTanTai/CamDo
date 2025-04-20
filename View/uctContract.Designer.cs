@@ -95,7 +95,7 @@ namespace CamDo.View
             // 
             cmbStatus.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbStatus.FormattingEnabled = true;
-            cmbStatus.Items.AddRange(new object[] { "Đang hoạt động", "Đã kết thúc", "Nợ xấu" });
+            cmbStatus.Items.AddRange(new object[] { "Đang hoạt động", "Đã kết thúc", "Quá hạn", "Thanh lý" });
             cmbStatus.Location = new Point(585, 410);
             cmbStatus.Name = "cmbStatus";
             cmbStatus.Size = new Size(116, 28);

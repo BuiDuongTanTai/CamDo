@@ -32,6 +32,7 @@ namespace CamDo.View
 
         private void uctContract_Load(object sender, EventArgs e)
         {
+            connection_sql.thucThiLenh(constant.update_ContractStatus);
             LoadDataToGrid();
         }
 
@@ -82,8 +83,8 @@ namespace CamDo.View
             txtSearch.Clear();
             cmbStatus.SelectedIndex = -1; // Xóa lựa chọn hiện tại
 
-            // Tải lại dữ liệu ban đầu vào DataGridView
-            LoadDataToGrid();
+            // Tải lại dữ liệu vào DataGridView
+            uctContract_Load(this, e);
         }
 
         private void btnStatus_Click(object sender, EventArgs e)
@@ -116,7 +117,7 @@ namespace CamDo.View
                 decimal interestRate = decimal.Parse(selectedRow.Cells["LaiSuat"].Value.ToString());
                 DateTime dateBegin = DateTime.Parse(selectedRow.Cells["NgayVay"].Value.ToString());
                 DateTime dateFinish = DateTime.Parse(selectedRow.Cells["HanTra"].Value.ToString());
-                string trangThai = selectedRow.Cells["TrangThai"].Value.ToString(); // Nếu có cột trạng thái
+                string trangThai = selectedRow.Cells["TrangThai"].Value.ToString(); 
 
                 // Tạo form chỉnh sửa và truyền dữ liệu
                 frmEditContract editForm = new frmEditContract(idHD, idTS, money, interestRate, dateBegin, dateFinish, trangThai);

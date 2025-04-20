@@ -112,9 +112,9 @@ INSERT INTO HOPDONG (IDHD, IDTS, SOTIEN, LAISUAT, NGAYVAY, HANTRA, TRANGTHAI) VA
 (1, 1, 5500000, 0.5, '2024-10-01', '2025-01-01', N'Đã kết thúc'),        
 (2, 2, 200000000, 4.5, '2024-02-01', '2025-07-01', N'Đang hoạt động'),   
 (3, 1, 150000000, 4.0, '2024-03-01', '2025-10-01', N'Đang hoạt động'), 
-(9, 2, 2000000, 0.4, '2024-02-01', '2025-02-01', N'Nợ'),                 
-(10, 2, 1500000, 0.6, '2024-03-01', '2025-03-01', N'Nợ'),                
-(11, 1, 2500000, 0.5, '2024-04-01', '2025-04-01', N'Nợ'),                
+(9, 2, 2000000, 0.4, '2024-02-01', '2025-02-01', N'Quá hạn'),                 
+(10, 2, 1500000, 0.6, '2024-03-01', '2025-03-01', N'Quá hạn'),                
+(11, 1, 2500000, 0.5, '2024-04-01', '2025-04-01', N'Quá hạn'),                
 (12, 2, 3000000, 0.4, '2024-05-01', '2025-05-01', N'Đang hoạt động'),    
 (13, 2, 3500000, 0.7, '2024-06-01', '2025-06-01', N'Đang hoạt động'),    
 (14, 1, 4000000, 0.5, '2024-07-01', '2025-07-01', N'Đang hoạt động'),    
@@ -126,11 +126,7 @@ INSERT INTO HOPDONG (IDHD, IDTS, SOTIEN, LAISUAT, NGAYVAY, HANTRA, TRANGTHAI) VA
 
 GO
 
--- Cập nhật trạng thái
-UPDATE HOPDONG
-SET TrangThai = N'Đã kết thúc'
-WHERE TrangThai = N'Hoàn tất';
-GO
+
 
 /*==============================================================*/
 /* HÀM & THỦ TỤC                                                */
@@ -234,5 +230,18 @@ GO
 CREATE PROCEDURE spDeleteContract (@idhd INT)
 AS BEGIN
     DELETE FROM HOPDONG WHERE IDHD = @idhd;
+END;
+GO
+
+CREATE PROCEDURE spUpdateContractStatus
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Trả về các hợp đồng vừa được cập nhật
+    UPDATE HOPDONG
+    SET TRANGTHAI = N'Quá hạn'
+    OUTPUT INSERTED.IDHD, INSERTED.HANTRA
+    WHERE HANTRA < GETDATE() AND TRANGTHAI = N'Đang hoạt động';
 END;
 GO
