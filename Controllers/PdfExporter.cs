@@ -99,11 +99,15 @@ namespace CamDo.Controllers
                 }
 
                 MessageBox.Show($"Xuất hoá đơn thành công!\nFile lưu tại: {pdfFilePath}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
-                {
-                    FileName = pdfFilePath,
-                    UseShellExecute = true
-                });
+                DialogResult dr = MessageBox.Show("Bạn có muốn mở file hoá đơn không không?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dr == DialogResult.Yes)
+                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                    {
+                        FileName = pdfFilePath,
+                        UseShellExecute = true
+                    });
+                else
+                    return;
             }
             catch (Exception ex)
             {
@@ -266,11 +270,15 @@ namespace CamDo.Controllers
                 }
 
                 MessageBox.Show($"Xuất hợp đồng thành công!\nFile lưu tại: {pdfFilePath}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
-                {
-                    FileName = pdfFilePath,
-                    UseShellExecute = true
-                });
+                DialogResult dr = MessageBox.Show("Bạn có muốn mở file hợp đồng không?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dr == DialogResult.Yes)
+                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                    {
+                        FileName = pdfFilePath,
+                        UseShellExecute = true
+                    });
+                else
+                    return;
             }
             catch (Exception ex)
             {
