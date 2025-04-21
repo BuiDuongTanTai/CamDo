@@ -21,7 +21,10 @@ namespace CamDo.Models
         public static string filter_Contract = "SELECT * FROM HOPDONG WHERE TRANGTHAI = @status";
         public static string show_Contract = "SELECT * FROM HOPDONG ORDER BY IDHD DESC";
         public static string search_Asset= "SELECT * FROM HOPDONG WHERE IDTS = @idts";
-        public static string update_ContractStatus = "spUpdateContractStatus";  
+        public static string update_ContractStatusAuto = "spUpdateContractStatusAuto";
+        public static string update_ContractStatusDone = "spUpdateContractStatusDone";
+        public static string update_ContractStatusLiquidation = "spUpdateContractStatusLiquidation";
+
 
         //stored procedure use for table Customer
         public static string insert_Customer = "spInsertCustomer";

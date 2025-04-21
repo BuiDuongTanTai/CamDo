@@ -14,8 +14,6 @@ namespace CamDo.Models
     {
         protected string username { get; set; } //100
         protected string password { get; set; } //250
-        protected string screenname { get; set; }   //250
-        protected int status { get; set; }  //int
 
         public UserLoginMod()
         {

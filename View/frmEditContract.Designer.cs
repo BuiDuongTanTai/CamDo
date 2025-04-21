@@ -105,10 +105,12 @@
             // 
             // txtMoney
             // 
+            txtMoney.ImeMode = ImeMode.Disable;
             txtMoney.Location = new Point(126, 109);
             txtMoney.Name = "txtMoney";
             txtMoney.Size = new Size(250, 27);
             txtMoney.TabIndex = 1;
+            txtMoney.TextChanged += txtMoney_TextChanged;
             txtMoney.KeyPress += txtMoney_KeyPress;
             // 
             // nmInteresRate

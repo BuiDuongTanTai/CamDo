@@ -17,10 +17,10 @@ namespace CamDo.View
         protected string sdt { get; set; }           // Số điện thoại
         protected string diachi { get; set; }
 
-        public frmEditCustomer(string cccd, string hoten,  string sdt, string diachi)
+        public frmEditCustomer(string cccd, string hoten, string sdt, string diachi)
         {
             InitializeComponent();
-            this.cccd = cccd;  
+            this.cccd = cccd;
             this.hoten = hoten;
             this.sdt = sdt;
             this.diachi = diachi;
@@ -98,7 +98,7 @@ namespace CamDo.View
                 {
                     MessageBox.Show("Cập nhật không thành công. Vui lòng thử lại.");
                 }
-            
+
                 this.Close();
             }
             else
@@ -112,6 +112,17 @@ namespace CamDo.View
                 this.Close();
             else
                 return;
+        }
+
+        private void txtSDT_TextChanged(object sender, EventArgs e)
+        {
+            string onlyDigits = new string(txtSDT.Text.Where(char.IsDigit).ToArray());
+            if (txtSDT.Text != onlyDigits)
+            {
+                int selectionStart = txtSDT.SelectionStart - 1;
+                txtSDT.Text = onlyDigits;
+                txtSDT.SelectionStart = Math.Max(0, selectionStart);
+            }
         }
     }
 }

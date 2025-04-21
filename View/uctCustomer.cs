@@ -69,7 +69,8 @@ namespace CamDo.View
                 // Lấy ID hợp đồng từ hàng được chọn
                 DataGridViewRow selectedRow = dgvCustomer.SelectedRows[0];
                 string cccd = selectedRow.Cells["CCCD"].Value.ToString();
-                int count = LoadDataSearchedCCCD(cccd).Rows.Count;
+                DataTable dataTable = Controllers.AssetCtrl.searchCustomer(cccd);
+                int count = dataTable.Rows.Count;
 
                 // Kiểm tra hợp đồng có tài sản này đã được xoá chưa
                 if (count != 0)
@@ -80,7 +81,7 @@ namespace CamDo.View
                 else
                 {
                     // Hiển thị hộp thoại xác nhận
-                    DialogResult dr = MessageBox.Show("Bạn có chắc chắn muốn xóa tài sản này?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    DialogResult dr = MessageBox.Show("Bạn có chắc chắn muốn khách hàng này?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     if (dr == DialogResult.Yes)
                     {
                         // Gọi phương thức xóa từ Controller
@@ -89,7 +90,7 @@ namespace CamDo.View
                         // Kiểm tra kết quả xóa
                         if (result > 0)
                         {
-                            MessageBox.Show("Xóa tài sản thành công!");
+                            MessageBox.Show("Xóa khách hàng thành công!");
                             LoadDataToGrid(); // Tải lại dữ liệu
                         }
                         else
@@ -112,7 +113,7 @@ namespace CamDo.View
             // Kiểm tra dữ liệu trả về
             if (dt.Rows.Count == 0)
             {
-                MessageBox.Show("Không tìm thấy tài sản nào với ID này.");
+                MessageBox.Show("Không tìm thấy khách hàng nào với CCCD này.");
             }
             return dt;
         }
@@ -123,7 +124,7 @@ namespace CamDo.View
             // Kiểm tra dữ liệu trả về
             if (dt.Rows.Count == 0)
             {
-                MessageBox.Show("Không tìm thấy tài sản nào với ID này.");
+                MessageBox.Show("Không tìm thấy khách hàng nào với CCCD này.");
             }
             return dt;
         }

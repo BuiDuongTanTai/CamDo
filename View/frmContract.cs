@@ -265,7 +265,7 @@ namespace CamDo.View
 
                     // Sao chép tệp hình ảnh vào thư mục
                     File.Copy(openFileDialog.FileName, newFilePath, true); // true để ghi đè nếu tệp đã tồn tại
-                    
+
                     // Hiển thị hình ảnh trong PictureBox
                     try
                     {
@@ -293,6 +293,39 @@ namespace CamDo.View
                     }
 
                 }
+            }
+        }
+
+        private void txtCCCD_TextChanged(object sender, EventArgs e)
+        {
+            string onlyDigits = new string(txtCCCD.Text.Where(char.IsDigit).ToArray());
+            if (txtCCCD.Text != onlyDigits)
+            {
+                int selectionStart = txtCCCD.SelectionStart - 1;
+                txtCCCD.Text = onlyDigits;
+                txtCCCD.SelectionStart = Math.Max(0, selectionStart);
+            }
+        }
+
+        private void txtSDT_TextChanged(object sender, EventArgs e)
+        {
+            string onlyDigits = new string(txtSDT.Text.Where(char.IsDigit).ToArray());
+            if (txtSDT.Text != onlyDigits)
+            {
+                int selectionStart = txtSDT.SelectionStart - 1;
+                txtSDT.Text = onlyDigits;
+                txtSDT.SelectionStart = Math.Max(0, selectionStart);
+            }
+        }
+
+        private void txtMoney_TextChanged(object sender, EventArgs e)
+        {
+            string onlyDigits = new string(txtMoney.Text.Where(char.IsDigit).ToArray());
+            if (txtMoney.Text != onlyDigits)
+            {
+                int selectionStart = txtMoney.SelectionStart - 1;
+                txtMoney.Text = onlyDigits;
+                txtMoney.SelectionStart = Math.Max(0, selectionStart);
             }
         }
     }

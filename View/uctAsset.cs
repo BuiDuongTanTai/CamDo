@@ -125,9 +125,9 @@ namespace CamDo.View
             {
                 // Lấy ID hợp đồng từ hàng được chọn
                 DataGridViewRow selectedRow = dgvAsset.SelectedRows[0];
-                string _idTS = selectedRow.Cells["IDTS"].Value.ToString();
-                int idTS = int.Parse(_idTS);
-                int count = LoadDataSearchedID(_idTS).Rows.Count;
+                int idTS = int.Parse(selectedRow.Cells["IDTS"].Value.ToString());
+                DataTable dataTable = Controllers.ContractCtrl.searchAsset(idTS);
+                int count = dataTable.Rows.Count; // Đếm số lượng hợp đồng có tài sản này
 
                 // Kiểm tra hợp đồng có tài sản này đã được xoá chưa
                 if (count != 0)

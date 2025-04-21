@@ -13,8 +13,8 @@
     <Compile Update="View\frmEditCustomer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="View\uctPay.cs">
-      <SubType>UserControl</SubType>
+    <Compile Update="View\frmPay.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Update="View\frmUpdateUserLogin.cs">
       <SubType>Form</SubType>

@@ -88,9 +88,27 @@ namespace CamDo.Models
             DataTable dt = connection_sql.FillDataTable(constant.search_Asset, paras);
             return dt;
         }
-        public DataTable UpdateStatus()
+        public DataTable UpdateStatusAuto()
         {
-            return connection_sql.FillDataTable(constant.update_ContractStatus);
+            return connection_sql.FillDataTable(constant.update_ContractStatusAuto);
+        }
+
+        public int UpdateStatusDone() 
+        {
+            int result = 0;
+            string[] paras = new string[1] { "@idhd" };
+            object[] values = new object[1] { IDHĐ };
+            result = connection_sql.Excute_Sql(constant.update_ContractStatusDone, CommandType.StoredProcedure, paras, values);
+            return result;
+        }
+
+        public int UpdateStatusLiquidation()
+        {
+            int result = 0;
+            string[] paras = new string[1] { "@idhd" };
+            object[] values = new object[1] { IDHĐ };
+            result = connection_sql.Excute_Sql(constant.update_ContractStatusLiquidation, CommandType.StoredProcedure, paras, values);
+            return result;
         }
     }
 }

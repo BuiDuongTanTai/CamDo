@@ -33,11 +33,11 @@ CREATE TABLE TAISAN (
    CCCD     CHAR(12)          NOT NULL,
    TENTS    NVARCHAR(100),
    MOTA     NVARCHAR(1000),
-   HINHANH  VARCHAR(255),
+   HINHANH  NVARCHAR(255),
    CONSTRAINT PK_TAISAN PRIMARY KEY NONCLUSTERED (IDTS)
 );
 GO
-
+    
 CREATE INDEX SOHUU_FK ON TAISAN (CCCD ASC);
 GO
 
@@ -183,26 +183,26 @@ AS BEGIN
 END;
 GO
 
-CREATE PROCEDURE spUpdateCustomer (@cccd VARCHAR, @hoten NVARCHAR(100), @sdt VARCHAR(10), @diachi NVARCHAR(100))
+CREATE PROCEDURE spUpdateCustomer (@cccd VARCHAR(12), @hoten NVARCHAR(100), @sdt VARCHAR(10), @diachi NVARCHAR(100))
 AS BEGIN
     UPDATE KHACHHANG SET HOTEN = @hoten, SDT = @sdt, DIACHI = @diachi WHERE CCCD = @cccd;
 END;
 GO
 
-CREATE PROCEDURE spDeleteCustomer (@cccd VARCHAR)
+CREATE PROCEDURE spDeleteCustomer (@cccd VARCHAR(12))
 AS BEGIN
     DELETE FROM KHACHHANG WHERE CCCD = @cccd;
 END;
 GO
 
 -- Thủ tục TÀI SẢN
-CREATE PROCEDURE spInsertAsset (@idts INT, @cccd CHAR(15), @tents NVARCHAR(100), @mota NVARCHAR(1000), @hinhanh VARCHAR(255))
+CREATE PROCEDURE spInsertAsset (@idts INT, @cccd CHAR(12), @tents NVARCHAR(100), @mota NVARCHAR(1000), @hinhanh VARCHAR(255))
 AS BEGIN
     INSERT INTO TAISAN VALUES (@idts, @cccd, @tents, @mota, @hinhanh);
 END;
 GO
 
-CREATE PROCEDURE spUpdateAsset (@idts INT, @cccd CHAR(15), @tents NVARCHAR(100), @mota NVARCHAR(1000), @hinhanh VARCHAR(255))
+CREATE PROCEDURE spUpdateAsset (@idts INT, @cccd CHAR(12), @tents NVARCHAR(100), @mota NVARCHAR(1000), @hinhanh VARCHAR(255))
 AS BEGIN
     UPDATE TAISAN SET CCCD = @cccd, TENTS = @tents, MOTA = @mota, HINHANH = @hinhanh WHERE IDTS = @idts;
 END;
@@ -233,7 +233,7 @@ AS BEGIN
 END;
 GO
 
-CREATE PROCEDURE spUpdateContractStatus
+CREATE PROCEDURE spUpdateContractStatusAuto
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -243,5 +243,17 @@ BEGIN
     SET TRANGTHAI = N'Quá hạn'
     OUTPUT INSERTED.IDHD, INSERTED.HANTRA
     WHERE HANTRA < GETDATE() AND TRANGTHAI = N'Đang hoạt động';
+END;
+GO
+
+CREATE PROCEDURE spUpdateContractStatusDone (@idhd INt)
+AS BEGIN
+    UPDATE HOPDONG SET TRANGTHAI = N'Đã kết thúc' WHERE IDHD = @idhd;
+END;
+GO
+
+CREATE PROCEDURE spUpdateContractStatusLiquidation (@idhd INT)
+AS BEGIN
+    UPDATE HOPDONG SET TRANGTHAI = N'Thanh lý' WHERE IDHD = @idhd;
 END;
 GO

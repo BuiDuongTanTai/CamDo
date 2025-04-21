@@ -110,5 +110,16 @@ namespace CamDo.View
             else
                 return;
         }
+
+        private void txtMoney_TextChanged(object sender, EventArgs e)
+        {
+            string onlyDigits = new string(txtMoney.Text.Where(char.IsDigit).ToArray());
+            if (txtMoney.Text != onlyDigits)
+            {
+                int selectionStart = txtMoney.SelectionStart - 1;
+                txtMoney.Text = onlyDigits;
+                txtMoney.SelectionStart = Math.Max(0, selectionStart);
+            }
+        }
     }
 }

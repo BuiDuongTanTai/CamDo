@@ -103,10 +103,12 @@ namespace CamDo.View
             // 
             // txtSearch
             // 
+            txtSearch.ImeMode = ImeMode.Disable;
             txtSearch.Location = new Point(325, 411);
             txtSearch.Name = "txtSearch";
             txtSearch.Size = new Size(136, 27);
             txtSearch.TabIndex = 4;
+            txtSearch.TextChanged += txtSearch_TextChanged;
             txtSearch.KeyPress += txtSearch_KeyPress;
             // 
             // btnSearch

@@ -32,7 +32,7 @@ namespace CamDo.View
 
         private void uctContract_Load(object sender, EventArgs e)
         {
-            connection_sql.thucThiLenh(constant.update_ContractStatus);
+            connection_sql.thucThiLenh(constant.update_ContractStatusAuto);
             LoadDataToGrid();
         }
 
@@ -117,7 +117,7 @@ namespace CamDo.View
                 decimal interestRate = decimal.Parse(selectedRow.Cells["LaiSuat"].Value.ToString());
                 DateTime dateBegin = DateTime.Parse(selectedRow.Cells["NgayVay"].Value.ToString());
                 DateTime dateFinish = DateTime.Parse(selectedRow.Cells["HanTra"].Value.ToString());
-                string trangThai = selectedRow.Cells["TrangThai"].Value.ToString(); 
+                string trangThai = selectedRow.Cells["TrangThai"].Value.ToString();
 
                 // Tạo form chỉnh sửa và truyền dữ liệu
                 frmEditContract editForm = new frmEditContract(idHD, idTS, money, interestRate, dateBegin, dateFinish, trangThai);
@@ -165,6 +165,17 @@ namespace CamDo.View
             else
             {
                 MessageBox.Show("Vui lòng chọn một dòng để xóa.");
+            }
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            string onlyDigits = new string(txtSearch.Text.Where(char.IsDigit).ToArray());
+            if (txtSearch.Text != onlyDigits)
+            {
+                int selectionStart = txtSearch.SelectionStart - 1;
+                txtSearch.Text = onlyDigits;
+                txtSearch.SelectionStart = Math.Max(0, selectionStart);
             }
         }
     }

@@ -93,10 +93,12 @@
             // 
             // txtSDT
             // 
+            txtSDT.ImeMode = ImeMode.Disable;
             txtSDT.Location = new Point(113, 103);
             txtSDT.Name = "txtSDT";
             txtSDT.Size = new Size(206, 27);
             txtSDT.TabIndex = 3;
+            txtSDT.TextChanged += txtSDT_TextChanged;
             txtSDT.KeyPress += txtSDT_KeyPress;
             // 
             // txtAddress

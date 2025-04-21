@@ -105,9 +105,9 @@ namespace CamDo.View
             ThemTabPages(uctAsset.uctAs, 4, "Tài sản");
         }
 
-        private DataTable updateStatus()
+        private DataTable updateStatusAuto()
         {
-            return Controllers.ContractCtrl.updateStatus();
+            return Controllers.ContractCtrl.updateStatusAuto();
         }
 
         private void LoadNotificationsToMenu()
@@ -116,7 +116,7 @@ namespace CamDo.View
             thôngBáoToolStripMenuItem.DropDownItems.Clear();
 
 
-            DataRowCollection rows = updateStatus().Rows;
+            DataRowCollection rows = updateStatusAuto().Rows;
             int count = rows.Count;
 
             if (count > 0)
@@ -170,6 +170,12 @@ namespace CamDo.View
                     thôngBáoToolStripMenuItem.DropDownItems.Add(notificationItem);
                 }
             }
+        }
+
+        private void thanhToánToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmPay frm = new frmPay();
+            frm.ShowDialog();
         }
     }
 }

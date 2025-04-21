@@ -39,7 +39,6 @@ namespace CamDo.View
             label7 = new Label();
             label9 = new Label();
             label8 = new Label();
-            label10 = new Label();
             label11 = new Label();
             txtName = new TextBox();
             txtAddress = new TextBox();
@@ -151,13 +150,6 @@ namespace CamDo.View
             label8.TabIndex = 7;
             label8.Text = "Ngày cầm";
             // 
-            // label10
-            // 
-            label10.Location = new Point(0, 0);
-            label10.Name = "label10";
-            label10.Size = new Size(100, 23);
-            label10.TabIndex = 12;
-            // 
             // label11
             // 
             label11.AutoSize = true;
@@ -186,28 +178,34 @@ namespace CamDo.View
             // 
             // txtCCCD
             // 
+            txtCCCD.ImeMode = ImeMode.Disable;
             txtCCCD.Location = new Point(156, 183);
             txtCCCD.Name = "txtCCCD";
             txtCCCD.Size = new Size(353, 27);
             txtCCCD.TabIndex = 3;
+            txtCCCD.TextChanged += txtCCCD_TextChanged;
             txtCCCD.KeyDown += txtCCCD_KeyDown;
             txtCCCD.KeyPress += txtNumber_KeyPress;
             // 
             // txtSDT
             // 
+            txtSDT.ImeMode = ImeMode.Disable;
             txtSDT.Location = new Point(156, 217);
             txtSDT.Name = "txtSDT";
             txtSDT.Size = new Size(353, 27);
             txtSDT.TabIndex = 4;
+            txtSDT.TextChanged += txtSDT_TextChanged;
             txtSDT.KeyDown += txtSDT_KeyDown;
             txtSDT.KeyPress += txtNumber_KeyPress;
             // 
             // txtMoney
             // 
+            txtMoney.ImeMode = ImeMode.Disable;
             txtMoney.Location = new Point(156, 250);
             txtMoney.Name = "txtMoney";
             txtMoney.Size = new Size(353, 27);
             txtMoney.TabIndex = 5;
+            txtMoney.TextChanged += txtMoney_TextChanged;
             txtMoney.KeyDown += txtMoney_KeyDown;
             txtMoney.KeyPress += txtNumber_KeyPress;
             // 
@@ -298,6 +296,7 @@ namespace CamDo.View
             ptbAssetImg.Name = "ptbAssetImg";
             ptbAssetImg.Size = new Size(496, 258);
             ptbAssetImg.SizeMode = PictureBoxSizeMode.StretchImage;
+            ptbAssetImg.TabIndex = 12;
             ptbAssetImg.TabStop = false;
             // 
             // label13
@@ -341,7 +340,6 @@ namespace CamDo.View
             Controls.Add(txtAddress);
             Controls.Add(txtName);
             Controls.Add(label11);
-            Controls.Add(label10);
             Controls.Add(label12);
             Controls.Add(label8);
             Controls.Add(label9);
@@ -371,7 +369,6 @@ namespace CamDo.View
         private Label label7;
         private Label label9;
         private Label label8;
-        private Label label10;
         private Label label11;
         private TextBox txtName;
         private TextBox txtAddress;

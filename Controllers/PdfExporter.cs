@@ -281,7 +281,6 @@ namespace CamDo.Controllers
                 // Tên file PDF sẽ bao gồm ID hợp đồng và tên khách hàng
                 string pdfFileName = $"HopDong_{contractId}_{customerInfo["HOTEN"].ToString().Replace(" ", "_")}.pdf";
                 string pdfFilePath = Path.Combine(contractsDirectory, pdfFileName);
-                MessageBox.Show("hù");
 
                 // Kiểm tra nếu file tồn tại
                 if (File.Exists(pdfFilePath))

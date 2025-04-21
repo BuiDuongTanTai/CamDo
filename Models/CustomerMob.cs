@@ -55,6 +55,7 @@ namespace CamDo.Models
             string[] paras = new string[1] { "@cccd" };
             object[] values = new object[1] { cccd };
             result = connection_sql.Excute_Sql(constant.delete_Customer, CommandType.StoredProcedure, paras, values);
+            MessageBox.Show(result.ToString());
             return result;
         }
 

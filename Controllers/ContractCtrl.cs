@@ -54,10 +54,22 @@ namespace CamDo.Controllers
             return contract.SearchAsset();
         }
 
-        public static DataTable updateStatus()
+        public static DataTable updateStatusAuto()
         {
             ContractMob contract = new ContractMob();
-            return contract.UpdateStatus();
+            return contract.UpdateStatusAuto();
+        }
+
+        public static int pay(int idhd)
+        {
+            ContractMob contract = new ContractMob(idhd, 0, 0, 0, DateTime.Now, DateTime.Now, "");
+            return contract.UpdateStatusDone();
+        }
+
+        public static int Liquidate(int idhd)
+        {
+            ContractMob contract = new ContractMob(idhd, 0, 0, 0, DateTime.Now, DateTime.Now, "");
+            return contract.UpdateStatusLiquidation();
         }
     }
 }
