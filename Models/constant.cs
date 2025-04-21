@@ -47,6 +47,8 @@ namespace CamDo.Models
         public static string search_AssetByName = "SELECT * FROM TAISAN WHERE TENTS like @tents";
         public static string search_Customer= "SELECT * FROM TAISAN WHERE CCCD like @cccd";
 
-
+        //stored procedure use for table Payment
+        public static string createid_Payment = "select id= dbo.fcgetIdPayment()";
+        public static string insert_Payment = "spInsertPayment";
     }
 }

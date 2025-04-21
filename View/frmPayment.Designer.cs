@@ -1,6 +1,6 @@
 ﻿namespace CamDo.View
 {
-    partial class frmPay
+    partial class frmPayment
     {
         /// <summary>
         /// Required designer variable.
@@ -60,6 +60,12 @@
             txtStatus = new TextBox();
             label15 = new Label();
             datePay = new DateTimePicker();
+            label16 = new Label();
+            label17 = new Label();
+            textBox1 = new TextBox();
+            textBox2 = new TextBox();
+            txtTotalInterest = new TextBox();
+            txtTotalAmount = new TextBox();
             ((System.ComponentModel.ISupportInitialize)ptbAssetImg).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nmInteresRate).BeginInit();
             SuspendLayout();
@@ -68,7 +74,7 @@
             // 
             label13.AutoSize = true;
             label13.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            label13.Location = new Point(12, 558);
+            label13.Location = new Point(12, 629);
             label13.Name = "label13";
             label13.Size = new Size(126, 20);
             label13.TabIndex = 34;
@@ -76,7 +82,7 @@
             // 
             // ptbAssetImg
             // 
-            ptbAssetImg.Location = new Point(14, 593);
+            ptbAssetImg.Location = new Point(14, 664);
             ptbAssetImg.Name = "ptbAssetImg";
             ptbAssetImg.Size = new Size(496, 258);
             ptbAssetImg.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -100,14 +106,14 @@
             cbAsset.Enabled = false;
             cbAsset.FormattingEnabled = true;
             cbAsset.Items.AddRange(new object[] { "Xe máy", "Xe ô tô", "Điện thoại", "Máy tính bảng", "Máy tính xách tay", "Giầy tờ", "Vàng", "Khác" });
-            cbAsset.Location = new Point(156, 491);
+            cbAsset.Location = new Point(156, 562);
             cbAsset.Name = "cbAsset";
             cbAsset.Size = new Size(353, 28);
             cbAsset.TabIndex = 10;
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(316, 867);
+            btnCancel.Location = new Point(316, 938);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(131, 44);
             btnCancel.TabIndex = 4;
@@ -117,7 +123,7 @@
             // 
             // btnPay
             // 
-            btnPay.Location = new Point(70, 867);
+            btnPay.Location = new Point(70, 938);
             btnPay.Name = "btnPay";
             btnPay.Size = new Size(131, 44);
             btnPay.TabIndex = 3;
@@ -148,7 +154,7 @@
             // txtDescription
             // 
             txtDescription.Enabled = false;
-            txtDescription.Location = new Point(156, 525);
+            txtDescription.Location = new Point(156, 596);
             txtDescription.Name = "txtDescription";
             txtDescription.Size = new Size(353, 27);
             txtDescription.TabIndex = 33;
@@ -197,7 +203,7 @@
             // 
             label11.AutoSize = true;
             label11.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            label11.Location = new Point(14, 495);
+            label11.Location = new Point(14, 566);
             label11.Name = "label11";
             label11.Size = new Size(61, 20);
             label11.TabIndex = 31;
@@ -207,7 +213,7 @@
             // 
             label12.AutoSize = true;
             label12.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            label12.Location = new Point(14, 528);
+            label12.Location = new Point(14, 599);
             label12.Name = "label12";
             label12.Size = new Size(106, 20);
             label12.TabIndex = 32;
@@ -374,11 +380,65 @@
             datePay.TabIndex = 40;
             datePay.Value = new DateTime(2025, 4, 21, 9, 49, 38, 0);
             // 
-            // frmPay
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label16.Location = new Point(14, 499);
+            label16.Name = "label16";
+            label16.Size = new Size(63, 20);
+            label16.TabIndex = 41;
+            label16.Text = "Tiền lãi:";
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label17.Location = new Point(12, 528);
+            label17.Name = "label17";
+            label17.Size = new Size(138, 20);
+            label17.TabIndex = 42;
+            label17.Text = "Tổng tiền phải trả:";
+            // 
+            // textBox1
+            // 
+            textBox1.Enabled = false;
+            textBox1.Location = new Point(156, 496);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(353, 27);
+            textBox1.TabIndex = 33;
+            // 
+            // textBox2
+            // 
+            textBox2.Enabled = false;
+            textBox2.Location = new Point(156, 529);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(353, 27);
+            textBox2.TabIndex = 33;
+            // 
+            // txtTotalInterest
+            // 
+            txtTotalInterest.Enabled = false;
+            txtTotalInterest.Location = new Point(156, 495);
+            txtTotalInterest.Name = "txtTotalInterest";
+            txtTotalInterest.Size = new Size(353, 27);
+            txtTotalInterest.TabIndex = 33;
+            // 
+            // txtTotalAmount
+            // 
+            txtTotalAmount.Enabled = false;
+            txtTotalAmount.Location = new Point(156, 528);
+            txtTotalAmount.Name = "txtTotalAmount";
+            txtTotalAmount.Size = new Size(353, 27);
+            txtTotalAmount.TabIndex = 33;
+            // 
+            // frmPayment
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(522, 923);
+            ClientSize = new Size(522, 992);
+            Controls.Add(label17);
+            Controls.Add(label16);
             Controls.Add(datePay);
             Controls.Add(btnSearchIDHD);
             Controls.Add(txtStatus);
@@ -394,6 +454,10 @@
             Controls.Add(btnPay);
             Controls.Add(dateFinish);
             Controls.Add(dateBegin);
+            Controls.Add(txtTotalAmount);
+            Controls.Add(txtTotalInterest);
+            Controls.Add(textBox2);
+            Controls.Add(textBox1);
             Controls.Add(txtDescription);
             Controls.Add(txtMoney);
             Controls.Add(txtSDT);
@@ -414,7 +478,7 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "frmPay";
+            Name = "frmPayment";
             Text = "Thanh toán";
             ((System.ComponentModel.ISupportInitialize)ptbAssetImg).EndInit();
             ((System.ComponentModel.ISupportInitialize)nmInteresRate).EndInit();
@@ -455,5 +519,11 @@
         private TextBox txtStatus;
         private Label label15;
         private DateTimePicker datePay;
+        private Label label16;
+        private Label label17;
+        private TextBox textBox1;
+        private TextBox textBox2;
+        private TextBox txtTotalInterest;
+        private TextBox txtTotalAmount;
     }
 }

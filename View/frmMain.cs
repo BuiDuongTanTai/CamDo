@@ -174,7 +174,7 @@ namespace CamDo.View
 
         private void thanhToánToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmPay frm = new frmPay();
+            frmPayment frm = new frmPayment();
             frm.ShowDialog();
         }
     }

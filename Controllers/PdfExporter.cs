@@ -8,11 +8,110 @@ using iTextSharp.text;
 using System.Globalization;
 using PdfFont = iTextSharp.text.Font;
 using System.Data;
+using System.Diagnostics.Contracts;
 
 namespace CamDo.Controllers
 {
     internal class PdfExporter
     {
+        // Phương thức xuất hoá đơn ra PDF
+        public static void ExportPaymentToPdf(int invoiceId, int contractId, string customerName, string customerAddress, string cccd, string phone, long money, decimal interestRate, DateTime payDate, DateTime beginDate, DateTime finishDate)
+        {
+            try
+            {
+                // Tạo thư mục lưu file
+                string contractsDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Payments");
+                if (!Directory.Exists(contractsDirectory))
+                    Directory.CreateDirectory(contractsDirectory);
+
+                // Tên file an toàn
+                string safeCustomerName = string.Concat(customerName.Where(c => !Path.GetInvalidFileNameChars().Contains(c))).Replace(" ", "_");
+                string pdfFileName = $"HoaDon_{invoiceId}_{safeCustomerName}.pdf";
+                string pdfFilePath = Path.Combine(contractsDirectory, pdfFileName);
+
+                // Tạo PDF
+                using (Document document = new Document(PageSize.A5, 25, 25, 25, 25))
+                {
+                    PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(pdfFilePath, FileMode.Create));
+                    document.Open();
+
+                    // Font
+                    string fontPath = @"c:\windows\fonts\arial.ttf";
+                    BaseFont baseFont = BaseFont.CreateFont(fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+                    PdfFont titleFont = new PdfFont(baseFont, 16, PdfFont.BOLD);
+                    PdfFont headingFont = new PdfFont(baseFont, 12, PdfFont.BOLD);
+                    PdfFont normalFont = new PdfFont(baseFont, 11, PdfFont.NORMAL);
+                    PdfFont italicFont = new PdfFont(baseFont, 10, PdfFont.ITALIC);
+
+                    // Tiêu đề
+                    Paragraph title = new Paragraph("HOÁ ĐƠN THANH TOÁN", titleFont)
+                    {
+                        Alignment = Element.ALIGN_CENTER,
+                        SpacingAfter = 20
+                    };
+                    document.Add(title);
+
+                    // Tên tiệm cầm đồ
+                    document.Add(new Paragraph("Tiệm câm đồ Tài Vũ", headingFont) { SpacingAfter = 5 });
+
+                    // Thông tin khách hàng
+                    Paragraph customerInfo = new Paragraph(
+                        $"Mã hóa đơn: {invoiceId}\n" +
+                        $"Mã hợp đồng: {contractId}\n" +
+                        $"Ngày thanh toán: {payDate.ToString("dd/MM/yyyy")}\n" +
+                        $"Họ tên khách hàng: {customerName}\n" +
+                        $"Địa chỉ: {customerAddress}\n" +
+                        $"CCCD: {cccd}\n" +
+                        $"Số điện thoại: {phone}\n", normalFont)
+                    {
+                        SpacingAfter = 10
+                    };
+                    document.Add(customerInfo);
+
+                    // Thông tin khoản vay
+                    int days = (finishDate - beginDate).Days;
+                    int months = (int)Math.Ceiling(days / 30.0);
+                    decimal totalInterest = money * (interestRate / 100) * months;
+                    decimal totalAmount = money + totalInterest;
+
+                    PdfPTable financeTable = new PdfPTable(2) { WidthPercentage = 100, SpacingAfter = 10 };
+                    financeTable.AddCell(new Phrase("Số tiền cầm:", normalFont));
+                    financeTable.AddCell(new Phrase($"{money:N0} VNĐ", normalFont));
+                    financeTable.AddCell(new Phrase("Lãi suất:", normalFont));
+                    financeTable.AddCell(new Phrase($"{interestRate}% / tháng", normalFont));
+                    financeTable.AddCell(new Phrase("Thời hạn vay:", normalFont));
+                    financeTable.AddCell(new Phrase($"{months} tháng", normalFont));
+                    financeTable.AddCell(new Phrase("Tiền lãi ước tính:", normalFont));
+                    financeTable.AddCell(new Phrase($"{totalInterest:N0} VNĐ", normalFont));
+                    financeTable.AddCell(new Phrase("Tổng tiền phải trả:", normalFont));
+                    financeTable.AddCell(new Phrase($"{totalAmount:N0} VNĐ", normalFont));
+                    document.Add(financeTable);
+
+                    // Ghi chú cuối
+                    Paragraph note = new Paragraph("Xin cảm ơn quý khách đã sử dụng dịch vụ của chúng tôi!", italicFont)
+                    {
+                        Alignment = Element.ALIGN_CENTER,
+                        SpacingBefore = 20
+                    };
+                    document.Add(note);
+
+                    document.Close();
+                }
+
+                MessageBox.Show($"Xuất hoá đơn thành công!\nFile lưu tại: {pdfFilePath}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = pdfFilePath,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi xuất hoá đơn: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
         // Phương thức xuất hợp đồng ra PDF
         public static void ExportContractToPdf(
             int contractId,

@@ -156,6 +156,18 @@ BEGIN
 END;
 GO
 
+-- Hàm tạo ID thanh toán tự tăng
+CREATE FUNCTION fcgetIdPayment()
+RETURNS INT
+AS
+BEGIN
+    DECLARE @Id INT, @MaxId INT;
+    SELECT @MaxId = MAX(IDTT) FROM THANHTOAN;
+    SET @Id = ISNULL(@MaxId, 0) + 1;
+    RETURN @Id;
+END;
+GO
+
 -- Thủ tục đăng nhập
 CREATE PROCEDURE spCheckLogin
     @username VARCHAR(100),
@@ -255,5 +267,12 @@ GO
 CREATE PROCEDURE spUpdateContractStatusLiquidation (@idhd INT)
 AS BEGIN
     UPDATE HOPDONG SET TRANGTHAI = N'Thanh lý' WHERE IDHD = @idhd;
+END;
+GO
+
+-- Thủ tục THANH TOÁN
+CREATE PROCEDURE spInsertPayment (@idtt INT, @idhd INT, @sotientra BIGINT, @ngaytra DATE)
+AS BEGIN
+    INSERT INTO THANHTOAN VALUES (@idtt, @idhd, @sotientra, @ngaytra);
 END;
 GO

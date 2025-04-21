@@ -12,9 +12,9 @@ using System.Windows.Forms;
 
 namespace CamDo.View
 {
-    public partial class frmPay : Form
+    public partial class frmPayment : Form
     {
-        public frmPay()
+        public frmPayment()
         {
             InitializeComponent();
         }
@@ -75,6 +75,10 @@ namespace CamDo.View
                 dateFinish.Text = contractInfo["HANTRA"].ToString();
                 string HINHANH = assetInfo["HINHANH"].ToString();
                 txtStatus.Text = contractInfo["TRANGTHAI"].ToString();
+                int days = ((DateTime)contractInfo["HANTRA"] - (DateTime)contractInfo["NGAYVAY"]).Days;
+                int months = (int)Math.Ceiling(days / 30.0);
+                decimal totalInterest = Convert.ToInt64(contractInfo["SOTIEN"]) * (Convert.ToDecimal(contractInfo["LAISUAT"]) / 100) * months;
+                decimal totalAmount = Convert.ToInt64(contractInfo["SOTIEN"]) + totalInterest;
                 // Kiểm tra và gán đường dẫn hình ảnh
                 if (!string.IsNullOrEmpty(HINHANH))
                 {
@@ -122,11 +126,14 @@ namespace CamDo.View
                     MessageBox.Show("Không thể thanh toán do tài sản đã bị thanh lý.");
                     return;
                 }
-                int result = ContractCtrl.pay(contractId);
-                if (result > 0)
+                int paymentId = PaymentCtrl.generalid();
+                int result2 = PaymentCtrl.insert(paymentId, contractId, long.Parse(txtMoney.Text), datePay.Value);
+                if (result2 > 0)
                 {
                     MessageBox.Show("Thanh toán thành công!");
                     this.DialogResult = DialogResult.OK;
+                    PdfExporter.ExportPaymentToPdf(paymentId, contractId, txtName.Text, txtAddress.Text, txtCCCD.Text, txtSDT.Text, long.Parse(txtMoney.Text), nmInteresRate.Value, datePay.Value, dateBegin.Value, dateFinish.Value);
+                    int result1 = ContractCtrl.pay(contractId);
                     this.Close();
                 }
                 else
