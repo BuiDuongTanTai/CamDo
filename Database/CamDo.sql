@@ -94,38 +94,46 @@ INSERT INTO TAIKHOAN VALUES
 ('admin', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3');
 GO
 
--- Khách hàng
-INSERT INTO KHACHHANG (CCCD, HOTEN, SDT, DIACHI) VALUES
-('056789012345', N'Nguyễn Văn A', '0123456789', N'Hà Nội'),
-('067890123456', N'Trần Thị B', '0987654321', N'TP. Hồ Chí Minh'),
-('078901234567', N'Lê Văn C', '0234567890', N'Đà Nẵng');
+-- Dữ liệu KHACHHANG
+INSERT INTO KHACHHANG (CCCD, HOTEN, SDT, DIACHI)
+VALUES 
+('001122334455', N'Nguyễn Văn A', '0912345678', N'Hà Nội'),
+('002233445566', N'Trần Thị B', '0923456789', N'Hồ Chí Minh'),
+('003344556677', N'Lê Văn C', '0934567890', N'Đà Nẵng');
+
+-- Dữ liệu TAISAN và HOPDONG (gắn liền)
+INSERT INTO TAISAN (IDTS, CCCD, TENTS, MOTA, HINHANH) VALUES 
+(1, '001122334455', N'Xe máy Honda', N'Xe máy Honda đời 2020', N'honda2020.jpg'),
+(2, '001122334455', N'Laptop Dell', N'Laptop Dell i7', N'dell.jpg'),
+(3, '002233445566', N'Điện thoại iPhone', N'iPhone 12 Pro', N'iphone12.jpg'),
+(4, '002233445566', N'Nhẫn vàng', N'Nhẫn vàng 18K', N'vang.jpg'),
+(5, '003344556677', N'Tivi Sony', N'Tivi Sony 55 inch', N'sony.jpg'),
+(6, '003344556677', N'Tủ lạnh Samsung', N'Tủ lạnh Inverter', N'samsung.jpg'),
+(7, '001122334455', N'Máy ảnh Canon', N'Máy ảnh Canon EOS', N'canon.jpg'),
+(8, '002233445566', N'Xe đạp thể thao', N'Xe đạp Giant', N'giant.jpg'),
+(9, '003344556677', N'Máy tính bảng', N'iPad Gen 9', N'ipad.jpg'),
+(10,'001122334455', N'Loa Bluetooth', N'Loa JBL Flip', N'jbl.jpg');
+
+INSERT INTO HOPDONG (IDHD, IDTS, SOTIEN, LAISUAT, NGAYVAY, HANTRA, TRANGTHAI) VALUES 
+(1, 1, 15000000, 2.5, '2025-01-05', '2025-04-05', N'Còn hiệu lực'),
+(2, 2, 10000000, 2.0, '2025-01-10', '2025-04-10', N'Còn hiệu lực'),
+(3, 3, 20000000, 3.0, '2025-01-15', '2025-04-15', N'Còn hiệu lực'),
+(4, 4, 5000000, 2.2, '2025-01-20', '2025-04-20', N'Đã tất toán'),
+(5, 5, 18000000, 2.8, '2025-01-25', '2025-04-25', N'Còn hiệu lực'),
+(6, 6, 12000000, 2.3, '2025-01-30', '2025-04-30', N'Còn hiệu lực'),
+(7, 7, 7000000, 2.0, '2025-02-04', '2025-05-04', N'Còn hiệu lực'),
+(8, 8, 9000000, 2.7, '2025-02-09', '2025-05-09', N'Quá hạn'),
+(9, 9, 11000000, 2.5, '2025-02-14', '2025-05-14', N'Còn hiệu lực'),
+(10,10, 8000000, 2.1, '2025-02-19', '2025-05-19', N'Còn hiệu lực');
+
+-- Dữ liệu THANHTOAN (một số hợp đồng có thanh toán)
+INSERT INTO THANHTOAN (IDTT, IDHD, SOTIENTRA, NGAYTRA) VALUES 
+(1, 1, 5000000, '2025-02-05'),
+(2, 3, 10000000, '2025-02-16'),
+(3, 4, 5000000, '2025-02-25'),
+(4, 6, 3000000, '2025-03-01'),
+(5, 8, 2000000, '2025-03-05');
 GO
-
--- Tài sản
-INSERT INTO TAISAN (IDTS, CCCD, TENTS, MOTA, HINHANH) VALUES
-(1, '056789012345', N'Tài sản A', N'Mô tả tài sản A', 'path/to/imageA.jpg'),
-(2, '056789012345', N'Tài sản B', N'Mô tả tài sản B', 'path/to/imageB.jpg');
-GO
-
--- Hợp đồng
-INSERT INTO HOPDONG (IDHD, IDTS, SOTIEN, LAISUAT, NGAYVAY, HANTRA, TRANGTHAI) VALUES
-(1, 1, 5500000, 0.5, '2024-10-01', '2025-01-01', N'Đã kết thúc'),        
-(2, 2, 200000000, 4.5, '2024-02-01', '2025-07-01', N'Đang hoạt động'),   
-(3, 1, 150000000, 4.0, '2024-03-01', '2025-10-01', N'Đang hoạt động'), 
-(9, 2, 2000000, 0.4, '2024-02-01', '2025-02-01', N'Quá hạn'),                 
-(10, 2, 1500000, 0.6, '2024-03-01', '2025-03-01', N'Quá hạn'),                
-(11, 1, 2500000, 0.5, '2024-04-01', '2025-04-01', N'Quá hạn'),                
-(12, 2, 3000000, 0.4, '2024-05-01', '2025-05-01', N'Đang hoạt động'),    
-(13, 2, 3500000, 0.7, '2024-06-01', '2025-06-01', N'Đang hoạt động'),    
-(14, 1, 4000000, 0.5, '2024-07-01', '2025-07-01', N'Đang hoạt động'),    
-(15, 2, 4500000, 0.4, '2024-08-01', '2025-01-01', N'Thanh lý'),          
-(16, 1, 5000000, 0.6, '2024-09-01', '2025-09-01', N'Thanh lý'),          
-(18, 2, 6000000, 0.4, '2024-11-01', '2025-11-01', N'Đang hoạt động'),    
-(19, 1, 6500000, 0.5, '2024-12-01', '2025-12-01', N'Đang hoạt động'),    
-(20, 1, 7000000, 0.6, '2025-01-01', '2026-01-01', N'Đang hoạt động');    
-
-GO
-
 
 
 /*==============================================================*/
