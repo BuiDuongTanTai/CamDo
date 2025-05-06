@@ -24,6 +24,7 @@ GO
 CREATE TABLE TAIKHOAN (
    USERNAME      CHAR(50)       NOT NULL,
    PASSWORDHASH  VARCHAR(256),
+   sdt		 CHAR(10),
    CONSTRAINT PK_TAIKHOAN PRIMARY KEY NONCLUSTERED (USERNAME)
 );
 GO
@@ -91,7 +92,7 @@ GO
 /*==============================================================*/
 -- Tài khoản
 INSERT INTO TAIKHOAN VALUES 
-('admin', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3');
+('Admin', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '0868212407');
 GO
 
 -- Dữ liệu KHACHHANG
@@ -115,16 +116,16 @@ INSERT INTO TAISAN (IDTS, CCCD, TENTS, MOTA, HINHANH) VALUES
 (10,'001122334455', N'Loa Bluetooth', N'Loa JBL Flip', N'jbl.jpg');
 
 INSERT INTO HOPDONG (IDHD, IDTS, SOTIEN, LAISUAT, NGAYVAY, HANTRA, TRANGTHAI) VALUES 
-(1, 1, 15000000, 2.5, '2025-01-05', '2025-04-05', N'Còn hiệu lực'),
-(2, 2, 10000000, 2.0, '2025-01-10', '2025-04-10', N'Còn hiệu lực'),
-(3, 3, 20000000, 3.0, '2025-01-15', '2025-04-15', N'Còn hiệu lực'),
-(4, 4, 5000000, 2.2, '2025-01-20', '2025-04-20', N'Đã tất toán'),
-(5, 5, 18000000, 2.8, '2025-01-25', '2025-04-25', N'Còn hiệu lực'),
-(6, 6, 12000000, 2.3, '2025-01-30', '2025-04-30', N'Còn hiệu lực'),
-(7, 7, 7000000, 2.0, '2025-02-04', '2025-05-04', N'Còn hiệu lực'),
+(1, 1, 15000000, 2.5, '2025-01-05', '2025-04-05', N'Đang hoạt động'),
+(2, 2, 10000000, 2.0, '2025-01-10', '2025-04-10', N'Đang hoạt động'),
+(3, 3, 20000000, 3.0, '2025-01-15', '2025-04-15', N'Đang hoạt động'),
+(4, 4, 5000000, 2.2, '2025-01-20', '2025-04-20', N'Đã kết thúc'),
+(5, 5, 18000000, 2.8, '2025-01-25', '2025-04-25', N'Đang hoạt động'),
+(6, 6, 12000000, 2.3, '2025-01-30', '2025-04-30', N'Đang hoạt động'),
+(7, 7, 7000000, 2.0, '2025-02-04', '2025-05-04', N'Đang hoạt động'),
 (8, 8, 9000000, 2.7, '2025-02-09', '2025-05-09', N'Quá hạn'),
-(9, 9, 11000000, 2.5, '2025-02-14', '2025-05-14', N'Còn hiệu lực'),
-(10,10, 8000000, 2.1, '2025-02-19', '2025-05-19', N'Còn hiệu lực');
+(9, 9, 11000000, 2.5, '2025-02-14', '2025-05-14', N'Đang hoạt động'),
+(10,10, 8000000, 2.1, '2025-02-19', '2025-05-19', N'Đang hoạt động');
 
 -- Dữ liệu THANHTOAN (một số hợp đồng có thanh toán)
 INSERT INTO THANHTOAN (IDTT, IDHD, SOTIENTRA, NGAYTRA) VALUES 
@@ -182,9 +183,13 @@ CREATE PROCEDURE spCheckLogin
     @password VARCHAR(250)
 AS
 BEGIN
-    SELECT * FROM TAIKHOAN WHERE USERNAME = @username AND PASSWORDHASH = @password;
+    SELECT * 
+    FROM TAIKHOAN 
+    WHERE USERNAME COLLATE SQL_Latin1_General_CP1_CS_AS = @username
+      AND PASSWORDHASH COLLATE SQL_Latin1_General_CP1_CS_AS = @password;
 END;
 GO
+
 
 -- Thủ tục cập nhật tài khoản
 CREATE PROCEDURE spUpdateUserLogin
@@ -241,7 +246,7 @@ AS BEGIN
 END;
 GO
 
-CREATE PROCEDURE spUpdateContract (@idhd INT, @idts INT, @tien BIGINT, @lai FLOAT, @ngayvay DATE, @hantra DATE, @trangthai VARCHAR(20))
+CREATE PROCEDURE spUpdateContract (@idhd INT, @idts INT, @tien BIGINT, @lai FLOAT, @ngayvay DATE, @hantra DATE, @trangthai NVARCHAR(20))
 AS BEGIN
     UPDATE HOPDONG SET IDTS = @idts, SOTIEN = @tien, LAISUAT = @lai, NGAYVAY = @ngayvay, HANTRA = @hantra, TRANGTHAI = @trangthai WHERE IDHD = @idhd;
 END;
@@ -284,3 +289,4 @@ AS BEGIN
     INSERT INTO THANHTOAN VALUES (@idtt, @idhd, @sotientra, @ngaytra);
 END;
 GO
+

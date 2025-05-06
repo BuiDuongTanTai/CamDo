@@ -122,8 +122,6 @@ namespace CamDo.View
                         return;
 
                     }
-                    MessageBox.Show("Thêm hợp đồng thành công");
-
                     Controllers.PdfExporter.ExportContractToPdf(idhd, name, address, cccd, sdt, money, InterestRate,
                 dateBe, dateFi, asset, description, imagePath);
 

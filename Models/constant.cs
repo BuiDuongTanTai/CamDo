@@ -50,5 +50,6 @@ namespace CamDo.Models
         //stored procedure use for table Payment
         public static string createid_Payment = "select id= dbo.fcgetIdPayment()";
         public static string insert_Payment = "spInsertPayment";
+        public static string liquidation = "spLiquidation";
     }
 }

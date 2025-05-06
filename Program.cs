@@ -1,7 +1,12 @@
+﻿using CamDo.View;
+using CamDo.Models;
+
 namespace CamDo
 {
-    internal static class Program
+    public static class Program
     {
+        public static String server = "", db = "", uid = "", pw = "", authen = "", role = "renter";
+
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
@@ -11,7 +16,27 @@ namespace CamDo
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new View.frmLogin());
+            if (!Config.ConfigFileExists())
+            {
+                try
+                {
+                    Config.LoadConfig();
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Không tìm thấy config", "Tạo file config mới");
+                    Application.Run(new frmConfig());
+                }
+            }
+            try
+            {
+                Config.LoadConfig();
+                Application.Run(new frmLogin());
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Lỗi config", e.Message);
+            }
         }
     }
 }

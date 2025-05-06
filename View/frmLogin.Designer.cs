@@ -62,12 +62,14 @@
             // 
             // txtUsername
             // 
+            txtUsername.Cursor = Cursors.IBeam;
             resources.ApplyResources(txtUsername, "txtUsername");
             txtUsername.Name = "txtUsername";
             txtUsername.KeyDown += textBox_KeyDown;
             // 
             // txtPassword
             // 
+            txtPassword.Cursor = Cursors.IBeam;
             resources.ApplyResources(txtPassword, "txtPassword");
             txtPassword.Name = "txtPassword";
             txtPassword.UseSystemPasswordChar = true;
@@ -92,6 +94,7 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(lab_title);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "frmLogin";

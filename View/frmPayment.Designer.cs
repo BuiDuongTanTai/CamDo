@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPayment));
             label13 = new Label();
             ptbAssetImg = new PictureBox();
             nmInteresRate = new NumericUpDown();
-            cbAsset = new ComboBox();
             btnCancel = new Button();
             btnPay = new Button();
             dateFinish = new DateTimePicker();
@@ -62,10 +62,9 @@
             datePay = new DateTimePicker();
             label16 = new Label();
             label17 = new Label();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            txtTotalInterest = new TextBox();
             txtTotalAmount = new TextBox();
+            txtTotalInterest = new TextBox();
+            txtAsset = new TextBox();
             ((System.ComponentModel.ISupportInitialize)ptbAssetImg).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nmInteresRate).BeginInit();
             SuspendLayout();
@@ -74,7 +73,7 @@
             // 
             label13.AutoSize = true;
             label13.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            label13.Location = new Point(12, 629);
+            label13.Location = new Point(11, 492);
             label13.Name = "label13";
             label13.Size = new Size(126, 20);
             label13.TabIndex = 34;
@@ -82,7 +81,7 @@
             // 
             // ptbAssetImg
             // 
-            ptbAssetImg.Location = new Point(14, 664);
+            ptbAssetImg.Location = new Point(13, 527);
             ptbAssetImg.Name = "ptbAssetImg";
             ptbAssetImg.Size = new Size(496, 258);
             ptbAssetImg.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -94,22 +93,11 @@
             nmInteresRate.DecimalPlaces = 1;
             nmInteresRate.Enabled = false;
             nmInteresRate.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
-            nmInteresRate.Location = new Point(156, 389);
+            nmInteresRate.Location = new Point(156, 822);
             nmInteresRate.Maximum = new decimal(new int[] { 10, 0, 0, 0 });
             nmInteresRate.Name = "nmInteresRate";
             nmInteresRate.Size = new Size(354, 27);
             nmInteresRate.TabIndex = 7;
-            // 
-            // cbAsset
-            // 
-            cbAsset.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbAsset.Enabled = false;
-            cbAsset.FormattingEnabled = true;
-            cbAsset.Items.AddRange(new object[] { "Xe máy", "Xe ô tô", "Điện thoại", "Máy tính bảng", "Máy tính xách tay", "Giầy tờ", "Vàng", "Khác" });
-            cbAsset.Location = new Point(156, 562);
-            cbAsset.Name = "cbAsset";
-            cbAsset.Size = new Size(353, 28);
-            cbAsset.TabIndex = 10;
             // 
             // btnCancel
             // 
@@ -117,7 +105,7 @@
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(131, 44);
             btnCancel.TabIndex = 4;
-            btnCancel.Text = "Huỷ";
+            btnCancel.Text = "Thanh lý";
             btnCancel.UseVisualStyleBackColor = true;
             btnCancel.Click += btnCancel_Click;
             // 
@@ -136,7 +124,7 @@
             dateFinish.CustomFormat = "dd/MM/yyyy";
             dateFinish.Enabled = false;
             dateFinish.Format = DateTimePickerFormat.Custom;
-            dateFinish.Location = new Point(156, 458);
+            dateFinish.Location = new Point(157, 389);
             dateFinish.Name = "dateFinish";
             dateFinish.Size = new Size(353, 27);
             dateFinish.TabIndex = 9;
@@ -146,7 +134,7 @@
             dateBegin.CustomFormat = "dd/MM/yyyy";
             dateBegin.Enabled = false;
             dateBegin.Format = DateTimePickerFormat.Custom;
-            dateBegin.Location = new Point(156, 425);
+            dateBegin.Location = new Point(157, 356);
             dateBegin.Name = "dateBegin";
             dateBegin.Size = new Size(353, 27);
             dateBegin.TabIndex = 8;
@@ -154,7 +142,7 @@
             // txtDescription
             // 
             txtDescription.Enabled = false;
-            txtDescription.Location = new Point(156, 596);
+            txtDescription.Location = new Point(155, 459);
             txtDescription.Name = "txtDescription";
             txtDescription.Size = new Size(353, 27);
             txtDescription.TabIndex = 33;
@@ -162,7 +150,7 @@
             // txtMoney
             // 
             txtMoney.Enabled = false;
-            txtMoney.Location = new Point(156, 358);
+            txtMoney.Location = new Point(156, 791);
             txtMoney.Name = "txtMoney";
             txtMoney.Size = new Size(353, 27);
             txtMoney.TabIndex = 6;
@@ -203,7 +191,7 @@
             // 
             label11.AutoSize = true;
             label11.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            label11.Location = new Point(14, 566);
+            label11.Location = new Point(13, 429);
             label11.Name = "label11";
             label11.Size = new Size(61, 20);
             label11.TabIndex = 31;
@@ -213,7 +201,7 @@
             // 
             label12.AutoSize = true;
             label12.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            label12.Location = new Point(14, 599);
+            label12.Location = new Point(13, 462);
             label12.Name = "label12";
             label12.Size = new Size(106, 20);
             label12.TabIndex = 32;
@@ -223,7 +211,7 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            label8.Location = new Point(12, 428);
+            label8.Location = new Point(13, 359);
             label8.Name = "label8";
             label8.Size = new Size(79, 20);
             label8.TabIndex = 27;
@@ -233,7 +221,7 @@
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            label9.Location = new Point(14, 463);
+            label9.Location = new Point(15, 394);
             label9.Name = "label9";
             label9.Size = new Size(65, 20);
             label9.TabIndex = 29;
@@ -243,7 +231,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            label7.Location = new Point(12, 395);
+            label7.Location = new Point(12, 828);
             label7.Name = "label7";
             label7.Size = new Size(67, 20);
             label7.TabIndex = 25;
@@ -253,7 +241,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            label6.Location = new Point(12, 359);
+            label6.Location = new Point(12, 792);
             label6.Name = "label6";
             label6.Size = new Size(146, 20);
             label6.TabIndex = 23;
@@ -302,13 +290,13 @@
             // label14
             // 
             label14.AutoSize = true;
-            label14.Font = new Font("Segoe UI", 30F);
-            label14.Location = new Point(95, 9);
+            label14.Font = new Font("Segoe UI", 25F);
+            label14.Location = new Point(3, 9);
             label14.Name = "label14";
             label14.RightToLeft = RightToLeft.No;
-            label14.Size = new Size(340, 67);
+            label14.Size = new Size(519, 57);
             label14.TabIndex = 13;
-            label14.Text = "THANH TOÁN";
+            label14.Text = "THANH TOÁN / THANH LÝ";
             label14.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label1
@@ -338,7 +326,7 @@
             btnSearchIDHD.Name = "btnSearchIDHD";
             btnSearchIDHD.Size = new Size(94, 29);
             btnSearchIDHD.TabIndex = 2;
-            btnSearchIDHD.Text = "Tra cứu";
+            btnSearchIDHD.Text = "🔎Tra cứu";
             btnSearchIDHD.UseVisualStyleBackColor = true;
             btnSearchIDHD.Click += btnSearchIDHD_Click;
             // 
@@ -384,7 +372,7 @@
             // 
             label16.AutoSize = true;
             label16.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            label16.Location = new Point(14, 499);
+            label16.Location = new Point(12, 868);
             label16.Name = "label16";
             label16.Size = new Size(63, 20);
             label16.TabIndex = 41;
@@ -394,49 +382,42 @@
             // 
             label17.AutoSize = true;
             label17.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            label17.Location = new Point(12, 528);
+            label17.Location = new Point(10, 897);
             label17.Name = "label17";
             label17.Size = new Size(138, 20);
             label17.TabIndex = 42;
             label17.Text = "Tổng tiền phải trả:";
             // 
-            // textBox1
+            // txtTotalAmount
             // 
-            textBox1.Enabled = false;
-            textBox1.Location = new Point(156, 496);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(353, 27);
-            textBox1.TabIndex = 33;
-            // 
-            // textBox2
-            // 
-            textBox2.Enabled = false;
-            textBox2.Location = new Point(156, 529);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(353, 27);
-            textBox2.TabIndex = 33;
+            txtTotalAmount.Enabled = false;
+            txtTotalAmount.Location = new Point(155, 893);
+            txtTotalAmount.Name = "txtTotalAmount";
+            txtTotalAmount.Size = new Size(353, 27);
+            txtTotalAmount.TabIndex = 33;
             // 
             // txtTotalInterest
             // 
             txtTotalInterest.Enabled = false;
-            txtTotalInterest.Location = new Point(156, 495);
+            txtTotalInterest.Location = new Point(154, 860);
             txtTotalInterest.Name = "txtTotalInterest";
             txtTotalInterest.Size = new Size(353, 27);
             txtTotalInterest.TabIndex = 33;
             // 
-            // txtTotalAmount
+            // txtAsset
             // 
-            txtTotalAmount.Enabled = false;
-            txtTotalAmount.Location = new Point(156, 528);
-            txtTotalAmount.Name = "txtTotalAmount";
-            txtTotalAmount.Size = new Size(353, 27);
-            txtTotalAmount.TabIndex = 33;
+            txtAsset.Enabled = false;
+            txtAsset.Location = new Point(155, 426);
+            txtAsset.Name = "txtAsset";
+            txtAsset.Size = new Size(353, 27);
+            txtAsset.TabIndex = 43;
             // 
             // frmPayment
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(522, 992);
+            Controls.Add(txtAsset);
             Controls.Add(label17);
             Controls.Add(label16);
             Controls.Add(datePay);
@@ -449,15 +430,12 @@
             Controls.Add(label13);
             Controls.Add(ptbAssetImg);
             Controls.Add(nmInteresRate);
-            Controls.Add(cbAsset);
             Controls.Add(btnCancel);
             Controls.Add(btnPay);
             Controls.Add(dateFinish);
             Controls.Add(dateBegin);
             Controls.Add(txtTotalAmount);
             Controls.Add(txtTotalInterest);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
             Controls.Add(txtDescription);
             Controls.Add(txtMoney);
             Controls.Add(txtSDT);
@@ -476,6 +454,7 @@
             Controls.Add(label10);
             Controls.Add(label14);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "frmPayment";
@@ -490,7 +469,6 @@
         private Label label13;
         private PictureBox ptbAssetImg;
         private NumericUpDown nmInteresRate;
-        private ComboBox cbAsset;
         private Button btnCancel;
         private Button btnPay;
         private DateTimePicker dateFinish;
@@ -521,9 +499,8 @@
         private DateTimePicker datePay;
         private Label label16;
         private Label label17;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private TextBox txtTotalInterest;
         private TextBox txtTotalAmount;
+        private TextBox txtTotalInterest;
+        private TextBox txtAsset;
     }
 }

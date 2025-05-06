@@ -30,6 +30,7 @@ namespace CamDo.View
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmContract));
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
@@ -350,6 +351,10 @@ namespace CamDo.View
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "frmContract";
             Text = "Tạo hợp đồng mới";
             ((System.ComponentModel.ISupportInitialize)nmInteresRate).EndInit();

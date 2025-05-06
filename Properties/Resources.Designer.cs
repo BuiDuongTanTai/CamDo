@@ -59,5 +59,45 @@ namespace CamDo.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] eye {
+            get {
+                object obj = ResourceManager.GetObject("eye", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] eye_slash {
+            get {
+                object obj = ResourceManager.GetObject("eye-slash", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap z6567316670754_207af5bb0209e86238718208d5473560 {
+            get {
+                object obj = ResourceManager.GetObject("z6567316670754_207af5bb0209e86238718208d5473560", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap z6567316670754_207af5bb0209e86238718208d54735601 {
+            get {
+                object obj = ResourceManager.GetObject("z6567316670754_207af5bb0209e86238718208d54735601", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

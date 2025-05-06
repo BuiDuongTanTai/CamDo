@@ -13,7 +13,8 @@ namespace CamDo.Models
 {
     class connection_sql
     {
-        public static string sqlcon = "Data Source=TAIBUI;Initial Catalog=CamDo;Integrated Security=True;Trust Server Certificate=True";
+        //public static string sqlcon = "Data Source=TAIBUI;Initial Catalog=CamDo;Integrated Security=True;Trust Server Certificate=True";
+        public static string sqlcon = Config.GetConnectionString();
         public static SqlConnection Getconnection()
         {
             SqlConnection con = new SqlConnection(sqlcon);

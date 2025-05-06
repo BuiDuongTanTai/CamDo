@@ -14,6 +14,33 @@ namespace CamDo.Controllers
 {
     internal class PdfExporter
     {
+        // Helper class để thêm watermark vào PDF
+        public class WatermarkHelper : PdfPageEventHelper
+        {
+            private readonly iTextSharp.text.Image _watermarkImage;
+
+            public WatermarkHelper(string imagePath)
+            {
+                if (File.Exists(imagePath))
+                {
+                    _watermarkImage = iTextSharp.text.Image.GetInstance(imagePath);
+                    _watermarkImage.SetAbsolutePosition(200, 500); // Vị trí logo (điều chỉnh theo ý muốn)
+                    _watermarkImage.ScaleToFit(200, 200); // Kích thước logo
+                    _watermarkImage.Alignment = Element.ALIGN_CENTER;
+                }
+            }
+
+            public override void OnEndPage(PdfWriter writer, Document document)
+            {
+                if (_watermarkImage != null)
+                {
+                    PdfContentByte canvas = writer.DirectContentUnder;
+                    canvas.AddImage(_watermarkImage);
+                }
+            }
+        }
+
+
         // Phương thức xuất hoá đơn ra PDF
         public static void ExportPaymentToPdf(int invoiceId, int contractId, string customerName, string customerAddress, string cccd, string phone, long money, decimal interestRate, DateTime payDate, DateTime beginDate, DateTime finishDate)
         {
@@ -33,6 +60,11 @@ namespace CamDo.Controllers
                 using (Document document = new Document(PageSize.A5, 25, 25, 25, 25))
                 {
                     PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(pdfFilePath, FileMode.Create));
+
+                    // Gán sự kiện để thêm watermark logo
+                    string logoPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Icon", "z6567316670754_207af5bb0209e86238718208d5473560.jpg");
+                    writer.PageEvent = new WatermarkHelper(logoPath);
+
                     document.Open();
 
                     // Font
@@ -145,6 +177,11 @@ namespace CamDo.Controllers
                 using (Document document = new Document(PageSize.A4, 50, 50, 50, 50))
                 {
                     PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(pdfFilePath, FileMode.Create));
+
+                    // Gán sự kiện để thêm watermark logo
+                    string logoPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\Icon", "z6567316670754_207af5bb0209e86238718208d5473560.jpg");
+                    writer.PageEvent = new WatermarkHelper(logoPath);
+
                     document.Open();
 
                     // Font

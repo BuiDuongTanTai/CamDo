@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmUpdateUserlogin));
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
@@ -75,7 +76,7 @@
             txtPasswordOld.Name = "txtPasswordOld";
             txtPasswordOld.Size = new Size(307, 41);
             txtPasswordOld.TabIndex = 1;
-            this.txtPasswordOld.UseSystemPasswordChar = true;
+            txtPasswordOld.UseSystemPasswordChar = true;
             // 
             // txtPassword
             // 
@@ -103,7 +104,7 @@
             btnOk.TabIndex = 4;
             btnOk.Text = "OK";
             btnOk.UseVisualStyleBackColor = true;
-            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
+            btnOk.Click += btnOk_Click;
             // 
             // btnCancel
             // 
@@ -113,7 +114,7 @@
             btnCancel.TabIndex = 5;
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            btnCancel.Click += btnCancel_Click;
             // 
             // frmUpdateUserlogin
             // 
@@ -128,6 +129,10 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "frmUpdateUserlogin";
             Text = "Đổi mật khẩu";
             Load += frmUpdateUserlogin_Load;

@@ -66,7 +66,7 @@ namespace CamDo.View
                 txtCCCD.Text = customerInfo["CCCD"].ToString();
                 txtSDT.Text = customerInfo["SDT"].ToString();
                 txtAddress.Text = customerInfo["DIACHI"].ToString();
-                cbAsset.SelectedValue = assetInfo["TENTS"].ToString();
+                txtAsset.Text = assetInfo["TENTS"].ToString();
                 txtDescription.Text = assetInfo["MOTA"].ToString();
                 txtIDHD.Text = contractInfo["IDHD"].ToString();
                 txtMoney.Text = contractInfo["SOTIEN"].ToString();
@@ -78,7 +78,9 @@ namespace CamDo.View
                 int days = ((DateTime)contractInfo["HANTRA"] - (DateTime)contractInfo["NGAYVAY"]).Days;
                 int months = (int)Math.Ceiling(days / 30.0);
                 decimal totalInterest = Convert.ToInt64(contractInfo["SOTIEN"]) * (Convert.ToDecimal(contractInfo["LAISUAT"]) / 100) * months;
+                txtTotalInterest.Text = totalInterest.ToString();
                 decimal totalAmount = Convert.ToInt64(contractInfo["SOTIEN"]) + totalInterest;
+                txtTotalAmount.Text = totalAmount.ToString();
                 // Kiểm tra và gán đường dẫn hình ảnh
                 if (!string.IsNullOrEmpty(HINHANH))
                 {
@@ -89,7 +91,7 @@ namespace CamDo.View
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Không thể tải hình ảnh: " + ex.Message);
+                        ptbAssetImg.Image = null; // Không có hình ảnh
                     }
                 }
                 else
@@ -149,11 +151,42 @@ namespace CamDo.View
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            DialogResult dr = MessageBox.Show("Bạn có muốn huỷ than toán không?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (dr == DialogResult.Yes)
-                this.Close();
-            else
+            if (string.IsNullOrEmpty(txtName.Text))
+            {
+                MessageBox.Show("Vui lòng nhập ID và tra cứu hợp đồng để thanh lý.");
                 return;
+            }
+            DialogResult dr = MessageBox.Show("Bạn có muốn thanh lý hợp đồng này không?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dr == DialogResult.Yes)
+            {
+                int contractId = int.Parse(txtIDHD.Text.Trim());
+                // Kiểm tra trạng thái hợp đồng trước khi thanh lý
+                if (txtStatus.Text == "Đã kết thúc")
+                {
+                    MessageBox.Show("Hợp đồng này đã được thanh toán trước đó.");
+                    return;
+                }
+                if (txtStatus.Text == "Thanh lý")
+                {
+                    MessageBox.Show("Tài sản đã được thanh lý trước đó.");
+                    return;
+                }
+                int result1 = ContractCtrl.Liquidate(contractId);
+                if (result1 > 0)
+                {
+                    MessageBox.Show("Thanh lý thành công!");
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Thanh toán không thành công. Vui lòng thử lại.");
+                }
+            }
+            else
+            {
+                return;
+            }
         }
 
         private void txtIDHD_KeyPress(object sender, KeyPressEventArgs e)

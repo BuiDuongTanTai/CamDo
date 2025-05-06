@@ -40,7 +40,6 @@ namespace CamDo.Models
         {
             string[] paras = new string[5] { "@IDTS", "@CCCD", "@TenTS", "@MoTa", "@HinhAnh" };
             object[] values = new object[5] { IDTS, CCCD, TenTS, MoTa, HinhAnh };
-            MessageBox.Show(HinhAnh);
             return connection_sql.Excute_Sql(constant.insert_Asset, CommandType.StoredProcedure, paras, values);
         }
 
